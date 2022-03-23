@@ -1,0 +1,29 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31019.35
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "UnofficialOneCareInstaller", "UnofficialOneCareInstaller\UnofficialOneCareInstaller.vbproj", "{A84E6EF7-7664-42E8-8673-0CE876983DF0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A84E6EF7-7664-42E8-8673-0CE876983DF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A84E6EF7-7664-42E8-8673-0CE876983DF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A84E6EF7-7664-42E8-8673-0CE876983DF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A84E6EF7-7664-42E8-8673-0CE876983DF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C675493-918A-4589-8E27-3DE8BB2A3FD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C675493-918A-4589-8E27-3DE8BB2A3FD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C675493-918A-4589-8E27-3DE8BB2A3FD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C675493-918A-4589-8E27-3DE8BB2A3FD6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1756AF07-A645-460E-9F6C-C510DC2C6591}
+	EndGlobalSection
+EndGlobal
