@@ -1,9 +1,16 @@
 # Security Policy
 
+## Reporting a Vulnerability
+
+It should go without saying that running this product alone is a security vulnerability. Windows Live OneCare hasn't been (and won't receive) updates for years.
+Please do not report issues about OneCare running outdated Virus signatures, nothing can be done about this. Modern MPAM-FE's no longer respond to the relevant
+arguments instructing updates to OneCare.
+
+If you find a serious vulnerability with the installer itself, please log this under Discussions or Issues so this can be looked into.
+
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+Please always ensure you're using the latest version.
 
 Mainstream:
 
@@ -36,10 +43,3 @@ Beta/Testing:
 | UnofficialOneCareInstaller-170720211508     | :x:                |
 | 467456                                      | :x:                |
 
-## Reporting a Vulnerability
-
-It should go without saying that running this product alone is a security vulnerability. Windows Live OneCare hasn't been (and won't receive) updates for years.
-Please do not report issues about OneCare running outdated Virus signatures, nothing can be done about this. Modern MPAM-FE's no longer respond to the relevant
-arguments instructing updates to OneCare.
-
-If you find a serious vulnerability with the installer itself, please log this under Discussions or Issues so this can be looked into.
