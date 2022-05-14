@@ -39,11 +39,10 @@ Partial Class expansion
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
-        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Font = New System.Drawing.Font("Calibri", 14.0!, System.Drawing.FontStyle.Bold)
         Me.Label4.Location = New System.Drawing.Point(9, 71)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(324, 24)
+        Me.Label4.Size = New System.Drawing.Size(517, 93)
         Me.Label4.TabIndex = 63
         Me.Label4.Text = "Expanding {PKG} for installation..."
         '
@@ -68,6 +67,7 @@ Partial Class expansion
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(538, 202)
+        Me.ControlBox = False
         Me.Controls.Add(Me.ProgressBar1)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.PictureBox1)

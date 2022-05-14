@@ -1,5 +1,6 @@
 ﻿Public Class expansion
     Public filename, filepath, destpath As String
+    Public useHiddenWindow As Boolean
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         If Timer1.Tag = 2 Then
             Timer1.Stop()
@@ -12,6 +13,7 @@
     End Sub
 
     Private Sub CF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Location = Installation.Location
         Me.MinimumSize = Me.Size : Me.MaximumSize = Me.Size
         Label4.Text = Label4.Text.Replace("{PKG}", filename)
         Me.Icon = Form1.Icon
@@ -26,6 +28,14 @@
             .FileName = "c:\Windows\System32\expand.exe"
             .Arguments = filepath & " -F:* " & destpath & " -R:*.MSI"
         End With
+        If useHiddenWindow = True Then
+            With expm
+                .CreateNoWindow = True
+                .UseShellExecute = False
+                .WindowStyle = ProcessWindowStyle.Hidden
+            End With
+        Else
+        End If
         Dim expander As Process = Process.Start(expm)
         expander.WaitForExit()
         Me.Close()

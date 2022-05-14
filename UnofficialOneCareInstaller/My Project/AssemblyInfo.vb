@@ -8,11 +8,11 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("UnofficialOneCareInstaller")>
-<Assembly: AssemblyDescription("")>
-<Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("UnofficialOneCareInstaller")>
-<Assembly: AssemblyCopyright("Copyright ©  2021")>
+<Assembly: AssemblyTitle("OneCare Rewritten")>
+<Assembly: AssemblyDescription("OneCare Rewritten")>
+<Assembly: AssemblyCompany("cloud Lillith Platform")>
+<Assembly: AssemblyProduct("OneCare Rewritten")>
+<Assembly: AssemblyCopyright("Copyright cloud Lillith Platform© 2018-2022")>
 <Assembly: AssemblyTrademark("")>
 
 <Assembly: ComVisible(False)>

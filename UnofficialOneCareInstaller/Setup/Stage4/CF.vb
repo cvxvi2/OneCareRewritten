@@ -13,6 +13,8 @@
     End Sub
 
     Private Sub CF_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Location = Installation.Location
+        Label1.Text = "Copying " & filepath & " to " & destinationpath
         Me.MinimumSize = Me.Size : Me.MaximumSize = Me.Size
         Label4.Text = Label4.Text.Replace("{PKG}", filename)
         Me.Icon = Form1.Icon

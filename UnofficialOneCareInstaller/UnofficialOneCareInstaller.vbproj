@@ -89,6 +89,11 @@
     <Compile Include="insttlog.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="preinst.Designer.vb">
       <DependentUpon>preinst.vb</DependentUpon>
     </Compile>
@@ -120,11 +125,6 @@
       <DependentUpon>Application.myapp</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="My Project\Resources.Designer.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <Compile Include="My Project\Settings.Designer.vb">
       <AutoGen>True</AutoGen>
       <DependentUpon>Settings.settings</DependentUpon>
@@ -146,6 +146,12 @@
       <DependentUpon>chooseVersion.vb</DependentUpon>
     </Compile>
     <Compile Include="Setup\Stage3\chooseVersion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup\Stage4\BetaWarning.Designer.vb">
+      <DependentUpon>BetaWarning.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\Stage4\BetaWarning.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Setup\Stage4\CF.Designer.vb">
@@ -191,9 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\Errors\SetupCancelled.resx">
       <DependentUpon>SetupCancelled.vb</DependentUpon>
@@ -203,6 +209,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\Stage3\chooseVersion.resx">
       <DependentUpon>chooseVersion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup\Stage4\BetaWarning.resx">
+      <DependentUpon>BetaWarning.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\Stage4\CF.resx">
       <DependentUpon>CF.vb</DependentUpon>
@@ -229,6 +238,8 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Resources\GoldenBOINC.bat" />
+    <None Include="Resources\XPBoinc.bat" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\banner.png" />
@@ -242,6 +253,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="onecare_256.ico" />
+    <None Include="Resources\boinc15.bat" />
     <None Include="Resources\ocrw64.png" />
     <None Include="Resources\bdrop.png" />
   </ItemGroup>

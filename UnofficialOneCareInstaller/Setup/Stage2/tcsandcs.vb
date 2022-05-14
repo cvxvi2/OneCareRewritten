@@ -10,10 +10,12 @@
 
     Sub initterms()
         If tandcsStage = 0 Then
-
+            log("Stage 0, showing my terms.")
         Else
+            log("Stage 1, reading " & globs.installationmediapath & "eula.txt...")
             Try
                 RichTextBox1.Text = My.Computer.FileSystem.ReadAllText(globs.installationmediapath & "eula.txt") 'RTF formats incorrectly
+                log("Stage 1, reading " & globs.installationmediapath & "eula.txt...done!")
             Catch ex As Exception
                 MsgBox("An error occurred whilst reading EULA.TXT from the installation media. Setup cannot continue.", 0 + 16, Me.Text)
                 SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & "Files required for the installation could not be found."

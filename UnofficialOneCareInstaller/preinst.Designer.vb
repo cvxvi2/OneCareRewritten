@@ -43,11 +43,30 @@ Partial Class preinst
         Me.TabPage4 = New System.Windows.Forms.TabPage()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.Label11 = New System.Windows.Forms.Label()
+        Me.TabPage5 = New System.Windows.Forms.TabPage()
+        Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.bposcheck = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
+        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
+        Me.Label12 = New System.Windows.Forms.Label()
+        Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.Button5 = New System.Windows.Forms.Button()
+        Me.Label14 = New System.Windows.Forms.Label()
+        Me.Label13 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
         Me.TabPage3.SuspendLayout()
         Me.TabPage4.SuspendLayout()
+        Me.TabPage5.SuspendLayout()
+        Me.GroupBox2.SuspendLayout()
+        Me.GroupBox1.SuspendLayout()
+        Me.TabPage6.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label4
@@ -63,10 +82,9 @@ Partial Class preinst
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(4, 207)
+        Me.Label1.Location = New System.Drawing.Point(4, 239)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(411, 78)
+        Me.Label1.Size = New System.Drawing.Size(601, 46)
         Me.Label1.TabIndex = 65
         Me.Label1.Text = resources.GetString("Label1.Text")
         '
@@ -84,7 +102,7 @@ Partial Class preinst
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(3, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(442, 195)
+        Me.Label2.Size = New System.Drawing.Size(432, 195)
         Me.Label2.TabIndex = 68
         Me.Label2.Text = resources.GetString("Label2.Text")
         '
@@ -94,6 +112,8 @@ Partial Class preinst
         Me.TabControl1.Controls.Add(Me.TabPage2)
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
+        Me.TabControl1.Controls.Add(Me.TabPage5)
+        Me.TabControl1.Controls.Add(Me.TabPage6)
         Me.TabControl1.Location = New System.Drawing.Point(162, 115)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -153,7 +173,7 @@ Partial Class preinst
         'Label9
         '
         Me.Label9.AutoSize = True
-        Me.Label9.Location = New System.Drawing.Point(6, 247)
+        Me.Label9.Location = New System.Drawing.Point(9, 202)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(521, 91)
         Me.Label9.TabIndex = 74
@@ -161,19 +181,18 @@ Partial Class preinst
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(3, 22)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(371, 195)
+        Me.Label8.Size = New System.Drawing.Size(594, 157)
         Me.Label8.TabIndex = 73
         Me.Label8.Text = resources.GetString("Label8.Text")
         '
         'Label7
         '
         Me.Label7.AutoSize = True
-        Me.Label7.BackColor = System.Drawing.Color.White
+        Me.Label7.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Label7.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
-        Me.Label7.Location = New System.Drawing.Point(3, 224)
+        Me.Label7.Location = New System.Drawing.Point(6, 179)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(309, 17)
         Me.Label7.TabIndex = 72
@@ -182,7 +201,7 @@ Partial Class preinst
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.BackColor = System.Drawing.Color.White
+        Me.Label6.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Label6.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.0!, System.Drawing.FontStyle.Bold)
         Me.Label6.Location = New System.Drawing.Point(3, 3)
         Me.Label6.Name = "Label6"
@@ -206,6 +225,7 @@ Partial Class preinst
         'Button3
         '
         Me.Button3.Dock = System.Windows.Forms.DockStyle.Bottom
+        Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.25!)
         Me.Button3.Image = Global.UnofficialOneCareInstaller.My.Resources.Resources.ocrw64
         Me.Button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.Button3.Location = New System.Drawing.Point(3, 257)
@@ -219,16 +239,16 @@ Partial Class preinst
         '
         Me.Label5.AutoSize = True
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.25!)
-        Me.Label5.Location = New System.Drawing.Point(7, 37)
+        Me.Label5.Location = New System.Drawing.Point(7, 33)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(406, 128)
+        Me.Label5.Size = New System.Drawing.Size(592, 224)
         Me.Label5.TabIndex = 71
         Me.Label5.Text = resources.GetString("Label5.Text")
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.BackColor = System.Drawing.Color.White
+        Me.Label3.BackColor = System.Drawing.Color.WhiteSmoke
         Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold)
         Me.Label3.Location = New System.Drawing.Point(3, 9)
         Me.Label3.Name = "Label3"
@@ -266,6 +286,159 @@ Partial Class preinst
         Me.Label11.TabIndex = 69
         Me.Label11.Text = resources.GetString("Label11.Text")
         '
+        'TabPage5
+        '
+        Me.TabPage5.Controls.Add(Me.GroupBox2)
+        Me.TabPage5.Controls.Add(Me.GroupBox1)
+        Me.TabPage5.Controls.Add(Me.Label12)
+        Me.TabPage5.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage5.Name = "TabPage5"
+        Me.TabPage5.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage5.Size = New System.Drawing.Size(611, 350)
+        Me.TabPage5.TabIndex = 4
+        Me.TabPage5.Text = "Advanced"
+        Me.TabPage5.UseVisualStyleBackColor = True
+        '
+        'GroupBox2
+        '
+        Me.GroupBox2.Controls.Add(Me.CheckBox1)
+        Me.GroupBox2.Controls.Add(Me.bposcheck)
+        Me.GroupBox2.Location = New System.Drawing.Point(10, 66)
+        Me.GroupBox2.Name = "GroupBox2"
+        Me.GroupBox2.Size = New System.Drawing.Size(583, 81)
+        Me.GroupBox2.TabIndex = 4
+        Me.GroupBox2.TabStop = False
+        Me.GroupBox2.Text = "Initial Setup"
+        '
+        'bposcheck
+        '
+        Me.bposcheck.AutoSize = True
+        Me.bposcheck.Location = New System.Drawing.Point(6, 19)
+        Me.bposcheck.Name = "bposcheck"
+        Me.bposcheck.Size = New System.Drawing.Size(219, 17)
+        Me.bposcheck.TabIndex = 1
+        Me.bposcheck.Text = "Bypass OS Check (NOT Recommended)"
+        Me.bposcheck.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.RadioButton3)
+        Me.GroupBox1.Controls.Add(Me.RadioButton2)
+        Me.GroupBox1.Controls.Add(Me.RadioButton1)
+        Me.GroupBox1.Enabled = False
+        Me.GroupBox1.Location = New System.Drawing.Point(6, 153)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(587, 95)
+        Me.GroupBox1.TabIndex = 3
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "BOINC Options (Disabled, future implementation planned)"
+        '
+        'RadioButton3
+        '
+        Me.RadioButton3.AutoSize = True
+        Me.RadioButton3.Location = New System.Drawing.Point(6, 65)
+        Me.RadioButton3.Name = "RadioButton3"
+        Me.RadioButton3.Size = New System.Drawing.Size(318, 17)
+        Me.RadioButton3.TabIndex = 4
+        Me.RadioButton3.Text = "Manual Mode (You will be required to follow some installations)"
+        Me.RadioButton3.UseVisualStyleBackColor = True
+        '
+        'RadioButton2
+        '
+        Me.RadioButton2.AutoSize = True
+        Me.RadioButton2.Location = New System.Drawing.Point(6, 42)
+        Me.RadioButton2.Name = "RadioButton2"
+        Me.RadioButton2.Size = New System.Drawing.Size(106, 17)
+        Me.RadioButton2.TabIndex = 3
+        Me.RadioButton2.Text = "Show Automated"
+        Me.RadioButton2.UseVisualStyleBackColor = True
+        '
+        'RadioButton1
+        '
+        Me.RadioButton1.AutoSize = True
+        Me.RadioButton1.Checked = True
+        Me.RadioButton1.Location = New System.Drawing.Point(6, 19)
+        Me.RadioButton1.Name = "RadioButton1"
+        Me.RadioButton1.Size = New System.Drawing.Size(210, 17)
+        Me.RadioButton1.TabIndex = 2
+        Me.RadioButton1.TabStop = True
+        Me.RadioButton1.Text = "(Default) Hide all installers (Quiet Mode)"
+        Me.RadioButton1.UseVisualStyleBackColor = True
+        '
+        'Label12
+        '
+        Me.Label12.AutoSize = True
+        Me.Label12.Location = New System.Drawing.Point(7, 7)
+        Me.Label12.Name = "Label12"
+        Me.Label12.Size = New System.Drawing.Size(346, 52)
+        Me.Label12.TabIndex = 0
+        Me.Label12.Text = "Settings here will apply when installation begins." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "These should NOT be used an" &
+    "d may harm your system or cause a faulty" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "installation."
+        '
+        'TabPage6
+        '
+        Me.TabPage6.Controls.Add(Me.GroupBox3)
+        Me.TabPage6.Controls.Add(Me.Label13)
+        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
+        Me.TabPage6.Name = "TabPage6"
+        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
+        Me.TabPage6.Size = New System.Drawing.Size(611, 350)
+        Me.TabPage6.TabIndex = 5
+        Me.TabPage6.Text = "OneCare Maintenance"
+        Me.TabPage6.UseVisualStyleBackColor = True
+        '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.Button5)
+        Me.GroupBox3.Controls.Add(Me.Label14)
+        Me.GroupBox3.Enabled = False
+        Me.GroupBox3.Location = New System.Drawing.Point(11, 30)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(586, 96)
+        Me.GroupBox3.TabIndex = 1
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Update Antivirus Definitions"
+        '
+        'Button5
+        '
+        Me.Button5.Location = New System.Drawing.Point(421, 54)
+        Me.Button5.Name = "Button5"
+        Me.Button5.Size = New System.Drawing.Size(159, 36)
+        Me.Button5.TabIndex = 1
+        Me.Button5.Text = "Update Definitions"
+        Me.Button5.UseVisualStyleBackColor = True
+        '
+        'Label14
+        '
+        Me.Label14.AutoSize = True
+        Me.Label14.Location = New System.Drawing.Point(7, 20)
+        Me.Label14.Name = "Label14"
+        Me.Label14.Size = New System.Drawing.Size(486, 13)
+        Me.Label14.TabIndex = 0
+        Me.Label14.Text = "If you've installed a 2.0 disc, you can install the V2.5 Definitions providing yo" &
+    "u have the MPAM-FE file."
+        '
+        'Label13
+        '
+        Me.Label13.AutoSize = True
+        Me.Label13.Enabled = False
+        Me.Label13.Font = New System.Drawing.Font("Calibri", 12.0!)
+        Me.Label13.Location = New System.Drawing.Point(7, 7)
+        Me.Label13.Name = "Label13"
+        Me.Label13.Size = New System.Drawing.Size(516, 19)
+        Me.Label13.TabIndex = 0
+        Me.Label13.Text = "If OneCare is already installed, you can perform some maintenance on it here."
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(6, 42)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(97, 17)
+        Me.CheckBox1.TabIndex = 2
+        Me.CheckBox1.Text = "Show Live Log"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'preinst
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -281,7 +454,7 @@ Partial Class preinst
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "preinst"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Windows Live OneCare Rewritten"
+        Me.Text = "Windows Live OneCare Rewritten Installer (V0.1.4)"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()
@@ -291,6 +464,16 @@ Partial Class preinst
         Me.TabPage3.PerformLayout()
         Me.TabPage4.ResumeLayout(False)
         Me.TabPage4.PerformLayout()
+        Me.TabPage5.ResumeLayout(False)
+        Me.TabPage5.PerformLayout()
+        Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox2.PerformLayout()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
+        Me.TabPage6.ResumeLayout(False)
+        Me.TabPage6.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -316,4 +499,18 @@ Partial Class preinst
     Friend WithEvents Button1 As Button
     Friend WithEvents Label11 As Label
     Friend WithEvents Button4 As Button
+    Friend WithEvents TabPage5 As TabPage
+    Friend WithEvents Label12 As Label
+    Friend WithEvents bposcheck As CheckBox
+    Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents RadioButton3 As RadioButton
+    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents RadioButton1 As RadioButton
+    Friend WithEvents TabPage6 As TabPage
+    Friend WithEvents Label13 As Label
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents Button5 As Button
+    Friend WithEvents Label14 As Label
+    Friend WithEvents CheckBox1 As CheckBox
 End Class

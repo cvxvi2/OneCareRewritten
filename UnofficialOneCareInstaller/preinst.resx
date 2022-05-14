@@ -119,26 +119,23 @@
   </resheader>
   <data name="Label1.Text" xml:space="preserve">
     <value>Disclaimer: This installer has no direct relation to Microsoft and is soley a community 
-project to bring back OneCare.
-
-Windows, Windows Live, The Windows Logo and OneCare are registered trademarks
-of Microsoft Corporation and have no affliation with the Windows Live OneCare
-Rewritten Installer Project.</value>
+project to bring back OneCare. Windows, Windows Live, The Windows Logo and OneCare are registered trademarks
+of Microsoft Corporation and have no affliation with the Windows Live OneCare Rewritten Installer Project.</value>
   </data>
   <data name="Label2.Text" xml:space="preserve">
-    <value>Welcome to the preinstallation environment for Windows Live OneCare Rewritten by "Cobs".
+    <value>Welcome to the preinstallation environment for Windows Live OneCare Rewritten by Cobs.
 
 Installation Notes:
 
 -If you're attempting a reinstall after a failed initial install, please delete %temp%\OCSetup
  and c:\OneCare
--Windows XP is not supported yet.
+-Windows XP is only supported with 2.5 discs on SP3.
 -Backup is known to cause a "not installed" message.
 -V2.5 Discs cause missing file 'dw20sharedamd64.cab' error. This is being worked on.
 
 Requirements:
 -Microsoft .Net 4.0
--Windows Vista
+-Windows Vista or Windows XP 32-Bit (SP3)
 -Windows Live ID Assistant Service
 -Windows Live OneCare disc in optical drive or virtually mounted
 </value>
@@ -155,19 +152,13 @@ this project alive.</value>
   <data name="Label8.Text" xml:space="preserve">
     <value>As much as I'd love to say yes, absolutely not.
 
-This installer mimics what the real installer would do if you manage to pass
-the initial "Checking for updates" screen.
+This installer mimics what the real installer would do if you manage to pass the initial "Checking for updates" screen.
 
-Unfortunately due to Microsoft taking down the software in 2009, it seems the
-servers went with it. This makes installing it (even from a disc) impossible
-with the built in installer.
+Unfortunately due to Microsoft taking down the software in 2009, it seems the servers went with it. This makes installing it (even from a disc) impossible with the built in installer.
 
-This project aims to remedy that by installing everything required.
+This project aims to remedy that by installing everything required. If you find bugs, please let me know. I can't promise anything but I'll try my best to resolve them.
 
-If you find bugs, please let me know. I can't promise anything but I'll try my
-best to resolve them.
-
-Backup (PXEngine) doesn't work. I'm looking into this.</value>
+Backup (PXEngine) doesn't work on 2.5 and 2.0 discs due to relying on Microsoft servers. 1.5 discs work fine.</value>
   </data>
   <data name="Label5.Text" xml:space="preserve">
     <value>When you're ready to install. Place the Microsoft Live OneCare Disc
@@ -177,7 +168,13 @@ Remember if any additional setup wizards ask you to restart the PC,
 choose No. You'll get a screen similar to this when we're ready
 to restart.
 
-That's it. Push Install below!</value>
+That's it. Push Install below!
+
+Disclaimer: You're installing this software at your own risk. It's old, contains outdated signatures and 
+absolutely should NOT be used on a live system. No guarantee's or warranties are provided,
+furthermore, any damages done to you, your computer, your system or other present systems are 
+not the responsibility of the software creator, developers, distributors or maintainers. 
+No support is provided for this.</value>
   </data>
   <data name="Label11.Text" xml:space="preserve">
     <value>Looking to uninstall Windows Live OneCare from your computer?

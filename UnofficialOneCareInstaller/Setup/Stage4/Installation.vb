@@ -7,8 +7,6 @@
         Me.Icon = Form1.Icon
         log("Evaluating files required for installation. Please wait.")
         Timer1.Start() 'cooldown so window does not freeze.
-
-
     End Sub
 
     Sub log(ByVal txt As String)
@@ -18,411 +16,408 @@
 
     Sub preprepstage()
         log("Downloading files from installation media location now. This will take a few minutes depending on the speed of your disc drive.")
+        'Some debug info for us, this can probs be pulled in release.
         log("Detected installation media location: " & globs.installationmediapath)
         log("Did the installer detect required components: " & init1.instlocfound.ToString)
         log("Creating temporary directory for installation files now.")
+        'We will store the extracted packages here when we're ready for BOINC installation.
+        If My.Computer.FileSystem.DirectoryExists("C:\Onecare") Then
+        Else
+            Try
+                My.Computer.FileSystem.CreateDirectory("C:\Onecare")
+            Catch ex As Exception
+                cancelInstallation("Unable to create required directory.", "Setup was unable to create c:\OneCare. Please validate permissions and try again.")
+            End Try
+        End If
+        'Create temporary directory for us to download the relevant files to.
         If My.Computer.FileSystem.DirectoryExists(FileIO.SpecialDirectories.Temp & "\OCSetup") Then
             log("Directory already exists, continuing.")
-            downloadFilesStage()
+            'Launch Modern Installer instead of the legacy clunky version.
+            ' downloadFilesStage()
+            modernInstaller()
         Else
             log("Attempting creation now...")
             Try
                 My.Computer.FileSystem.CreateDirectory(FileIO.SpecialDirectories.Temp & "\OCSetup")
                 log("Directory created successfully.")
-                preprepstage()
+                preprepstage() 'potential stack overflow here if the directory is created, then removed before it reruns constantly.
             Catch ex As Exception
-                SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Setup was unable to copy required files for installation:" & Environment.NewLine & ex.Message.ToString
+                cancelInstallation("Setup was unable to copy required files for installation:", ex.Message.ToString)
             End Try
         End If
 
     End Sub
 
-    Sub downloadFilesStage()
-        log("Copying files now...")
-        'Attempt to delete the old directory so we can safely recreate the packages from installation media.
-        If My.Computer.FileSystem.DirectoryExists(FileIO.SpecialDirectories.Temp & "\OCSetup\Pkgs") Then
-            Try
-                My.Computer.FileSystem.DeleteDirectory(FileIO.SpecialDirectories.Temp & "\OCSetup\Pkgs", FileIO.DeleteDirectoryOption.DeleteAllContents)
-            Catch ex As Exception
-                'Crash out, we can't copy files if the folder already exists.
-                SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Setup was unable to copy required files for installation:" & Environment.NewLine & ex.Message.ToString
-            End Try
-        End If
-        'Detect the OS type and Bit for the installation. 32Bit packages will not successfully install on 64bit, vice versa.
-        'XP installations use different packages and need additional KB MSU's to install.
-        If OSType = "XP" Then
-            'TBD here. Will likely only add 32Bit support for this since X64 XP is uncommon.
-            SetupCancelled.Show() : SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & "Thank you for your support. Unfortunately, implementation of Windows XP is not yet supported." & Environment.NewLine & "Please restart setup on a machine running Windows Vista Build 5500 or greater."
-            Me.Close()
-        Else
+    Function expandCabXP(ByVal filename As String, ByVal filepath As String, ByVal destination As String, ByVal createdir As Boolean, ByVal rename2msi As Boolean)
+        'Have made this a bit different for XP. It won't show a GUI for expansion.
 
-            If isx64install = True Then
-                'I should probably do this.
-                'Proceed with 64-Bit Installation
+        'Debug Info
+        log("XP Mode Cabinet Extraction beginning. The current parameters are:" & Environment.NewLine &
+            "filename: " & filename & Environment.NewLine &
+            "filepath: " & filepath & Environment.NewLine &
+            "destination: " & destination & Environment.NewLine &
+            "createdir: " & createdir & Environment.NewLine &
+            "rename2msi: " & rename2msi)
 
-                '=====================================
-                ' PHASE 1 - VERSION DETECTION
-                '=====================================
-
-                Dim pkgsx64 = {""}
-                'These are the names of the packages
-                Dim pkgsnam = {""}
-
-                Select Case globs.discVersion
-                    Case "2.0"
-                        'These are the package files relative to installmedia path for the version 2.0 Disc
-                        pkgsx64 = {"Pkgs\dw20sharedamd64.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\x64\winss.cab", "Pkgs\x64\mpam-fe.exe", "Pkgs\x64\vista\en-gb\AV.cab", "Pkgs\x64\vista\en-gb\MPSSetup.cab", "Pkgs\x64\vista\en-gb\OCLocRes.cab", "Pkgs\x64\vista\en-gb\Upgrade.cab"}
-                        'These are the names of the packages
-                        pkgsnam = {"DrWatsonX64", "GTOneCare", "Idcrl", "Backup", "WinSS", "AMSigs", "AVBits", "Firewall", "OneCareResources", "Upgrade"}
-                    Case "2.5"
-                        'These are the package files relative to installmedia path for the version 2.0 Disc
-                        pkgsx64 = {"Pkgs\ByProc\x64\dw20sharedamd64.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\ByProc\x64\winss.cab", "Pkgs\ByProc\x64\mpam-fe.exe", "Pkgs\ByProcMarket\x64\en-us\AV.cab", "Pkgs\ByProcOSMarket\x64\vista\en-us\MPSSetup.cab", "Pkgs\ByProcMarket\x64\en-gb\OCLocRes.cab", "Pkgs\ByMarket\en-us\Upgrade.cab"}
-                        'These are the names of the packages
-                        pkgsnam = {"DrWatsonX64", "GTOneCare", "Idcrl", "Backup", "WinSS", "AMSigs", "AVBits", "Firewall", "OneCareResources", "Upgrade"}
-
-                    Case Else
-                        SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "A version of the OneCare disc not supported by this installer was detected." & Environment.NewLine & "Please contact the developer so we can add support for this."
-                        SetupCancelled.Show()
-                        Me.Close()
-
-
-
-                End Select
-                '=====================================
-                ' PHASE 2 - COPY PACKAGES LOCALLY
-                '=====================================
-
-                'This portion utilises the original install.xml file.
-                log("Copying packages to the local disk now...")
-                For i = 0 To pkgsx64.Length - 1
-                    'This portion loops through all the cabinet files and MPAM-FE so we can copy them to the temporary folder for extraction.
-                    log("Copying application " & pkgsnam(i).ToString & " located at " & pkgsx64(i).ToString)
-                    If pkgsx64(i).Contains("mpam-fe.exe") Then ' We don't want to copy MPAM-FE as a cab file, it's an executable.
-                        copyFile(pkgsnam(i), globs.installationmediapath & pkgsx64(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsx64(i) & ".exe")
-                    Else
-                        copyFile(pkgsnam(i), globs.installationmediapath & pkgsx64(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsx64(i) & ".cab")
-                    End If
-                    ProgressBar1.Increment(ProgressBar1.Maximum / pkgsx64.Length - 1)
-                Next
-                ProgressBar1.Increment(ProgressBar1.Maximum - ProgressBar1.Value)
-                log("Finished copying packages.") : Label2.Text = "Download complete" : log("Beginning to expand the copied files now. This may take some time.")
-                '=====================================
-                ' PHASE 3 - EXPAND PACKAGES
-                '=====================================
-                For i = 0 To pkgsx64.Length - 1
-                    If pkgsnam(i) = "AMSigs" Then 'AMSigs / MPAM-FE is not a cabinet, we do not want to extract this.
-                    Else
-                        log("Expanding " & pkgsnam(i).ToString)
-                        Try
-                            'This creates a separate folder for each package during extraction to keep things clean
-                            My.Computer.FileSystem.CreateDirectory(FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsnam(i).ToString)
-                            'Here we call expandCab which will allow the disk a second to sleep, then extract the cabinet.
-                            expandCab(pkgsnam(i).ToString, globs.installationmediapath & pkgsx64(i).ToString, FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsnam(i).ToString)
-                        Catch ex As Exception
-                            'Crash out, somethings failed expanding. OneCare doesn't work correctly if all packages aren't installed in the correct order.
-                            'Continuing to install would require rolling back the operating system to a previous state before the installer was ran.
-                            SetupCancelled.Show() : SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Unable to create expansion folder for " & pkgsnam(i).ToString
-                            Me.Close()
-                        End Try
-                    End If
-                    ProgressBar2.Increment(5)
-                Next
-                log("Package Expansion finished.")
-
-                'BInstall is now default as the installer for some reason can't execute the MSI's despite having the correct args?
-                If globs.isBinstInstall = True Then
-                    '=====================================
-                    ' PHASE 4 - MSI REQUIRED DIRECTORIES
-                    '=====================================
-                    log("Binst Specified. The installer may hang whilst this processes.")
-                    log("Creating folders...")
+        Select Case createdir
+            Case True
+                log("Checking if dir already exists...")
+                If destination.Contains(".cab") Then
+                    destination = destination.Replace(".cab", Nothing)
+                End If
+                If destination.Contains(".msi") Then
+                    destination = destination.Replace(".msi", Nothing)
+                End If
+                If My.Computer.FileSystem.DirectoryExists(destination) Then
+                    'continue as normal, already exists.
+                    log("Checking if dir already exists...it does!")
+                Else
+                    log("Checking if dir already exists...it doesn't, creating now...")
                     Try
-                        'Create the folder where BOINC will be placed. We need to copy all of our packages and MPAM-FE here.
-                        log("Creating OneCare folder...")
-                        My.Computer.FileSystem.CreateDirectory("c:\OneCare")
-                        log("Creating OneCare Live folder")
-                        'Create the required folders for MSI Execution. Without these two folders, MSIEXEC will fail as it expects the logging location to exist.
-                        My.Computer.FileSystem.CreateDirectory("C:\Program Files\Microsoft Windows OneCare Live")
-                        log("Creating OneCare Live Logs folder...")
-                        My.Computer.FileSystem.CreateDirectory("C:\Program Files\Microsoft Windows OneCare Live\Logs")
+                        My.Computer.FileSystem.CreateDirectory(destination)
+                        log("Checking if dir already exists...created!")
                     Catch ex As Exception
-                        'Crash out, we don't want a partial installation.
-                        SetupCancelled.Show()
-                        SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Unable to create folders for BINST." & Environment.NewLine & "Specific Error: " & ex.Message.ToString
-                        log(ex.Message.ToString)
+                        log("Checking if dir already exists...failure! " & ex.Message.ToString)
+                        SetupCancelled.Show() : SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & "An unexpected error whilst extracting packages occurred: " & ex.Message.ToString
                         Me.Close()
                     End Try
+                End If
+            Case Else
+                log("Create Directory not specified, carrying on without.")
+        End Select
+        log("Checking rename2msi")
+        Select Case rename2msi
+            Case True
+                log("Yup, starting expansion with -r MSI.")
+                Dim expm As New ProcessStartInfo
+                With expm
+                    .FileName = "c:\Windows\System32\expand.exe"
+                    .Arguments = """" & filepath & """" & " -F:* " & """" & destination & """ -R:*.MSI"
+                    .CreateNoWindow = True
+                    .UseShellExecute = False
+                    .WindowStyle = ProcessWindowStyle.Hidden
+                End With
+                Dim expander As Process = Process.Start(expm)
+                log("Expander starting...")
+                expander.WaitForExit()
+                log("Expander starting...finished!")
+
+            Case False
+                log("Nope, starting without.")
+                Dim expm As New ProcessStartInfo
+                With expm
+                    .FileName = "c:\Windows\System32\expand.exe"
+                    .Arguments = """" & filepath & """" & " -F:* " & """" & destination & """ -R:*.exe"
+                    .CreateNoWindow = True
+                    .UseShellExecute = False
+                    .WindowStyle = ProcessWindowStyle.Hidden
+                End With
+                Dim expander As Process = Process.Start(expm)
+                log("Expander starting...")
+                expander.WaitForExit()
+                log("Expander starting...finished!")
+
+        End Select
+        System.Threading.Thread.Sleep(1000)
+        Return True
 
 
+    End Function
 
 
+    Public errorType As String = "A fatal error occurred but information was not received."
+    Public errorLog As String = "No specific error log was returned."
 
 
-                    '=====================================
-                    ' PHASE 5 - PREPARE FOR BOINC
-                    '=====================================
+    Sub modernInstaller()
+        'pre-checks
 
-                    Try
+
+        'For V1.5 discs:
+        'XP SP2 and Vista 32BIT ONLY support, no 64bit for Vista
+        '
+        'For V2.0 discs:
+        'XP SP2 and Vista 32/64bit ONLY, not SP3, uSP4 or SP1 support for XP.
+
+        'For V2.5 discs
+        'anything goes, as long as it's vista or XP...cough cough IdCRL package.
+
+        Select Case downloadFiles()
+            Case True
+                Label2.Text = "Download files complete. You can eject your disc."
+            Case False
+                cancelInstallation(errorType, errorLog)
+        End Select
+
+        'sleep for 2 seconds to allow anything cached in RAM to drain a bit.
+        System.Threading.Thread.Sleep(2000)
+        Select Case extractFiles()
+            Case True
+                Label5.Text = "Extracting files complete."
+            Case False
+                cancelInstallation(errorType, errorLog)
+        End Select
+        Select Case installFiles()
+            Case True
+                SetupComplete.Show()
+                Me.Close()
+            Case False
+
+                cancelInstallation(errorType, errorLog)
+        End Select
+    End Sub
+
+    Sub cancelInstallation(ByVal errortype, errorlog)
+        'This will be called when a fatal error occurs and the installation cannot continue.
+        'Have left byvals in just incase we need something specific to display whilst retaining the logs, perhaps for future use.
+        SetupCancelled.Label1.Text = errortype & Environment.NewLine & Environment.NewLine & errorlog
+        SetupCancelled.Show()
+        Me.Close()
+    End Sub
+
+    Private destfiles As String()   ' This is used in conjunction with filesToCopy from downloadFiles, but will need to be referenced by other functions here.
+    Function downloadFiles()
+        'Copy the relevant cabs from the disc based on disc version and OS. Each have different sets of files and locations.
+        'This is ran as a function so we can return true or false based on whether or not it was successful.
+        log("Preparing to download files from your disc. Currently figuring out which ones you need based on disc type and your current operating system.")
+        'Annoyingly each architecture, disc version and OS version has it's own set of files that we need, so this gets a bit messy.
+        'OS > Architecture > Disc Version
+        'OS will initially be used for us to specify between the Vista and XP folders, Architecture to grab the 64bit versions instead if we need them,
+        'and the disc type because the files are in different folders for each disc. Not sure why they didn't just keep them in the same directories.
+        Dim filesToCopy As String() ' Initial array of the files that will be copied
+
+        log("Building list of files to copy based on your OS Type of " & OSType)
+        Select Case OSType
+            Case "Vista"
+                log("Current OS type is Vista")
+                Select Case isx64install
+
+                    Case True
+                        log("Current installation type is x64.")
                         Select Case globs.discVersion
+                            Case "1.5"
+                                '64 Bit Installation Files
+                                '1.5 Gold does not support 64bit operating systems at all.
+                                log("Oops, you have a 64 Bit Operating system. These rare V1.5 Gold Discs won't work with that.")
+                                SetupCancelled.Show()
+                                SetupCancelled.Label1.Text = ("Unsupported Operating System Architecture" & Environment.NewLine & Environment.NewLine & "Unfortunately, the version of OneCare you're attempting to use (A version 1.5 'Gold' Disc), is only supported on the following: " & Environment.NewLine & Environment.NewLine &
+                                                    "Windows XP Service Pack 2: 32 Bit" & Environment.NewLine &
+                                                    "Windows Vista: 32 Bit" & Environment.NewLine & Environment.NewLine &
+                                                    "Your system is running a 64 Bit installation and thus is unsupported for installation. You'll need a Version 2.0 or Version 2.5 disc to continue.")
+                                Me.Close()
+                                Return False
                             Case "2.0"
-                                For i = 0 To pkgsnam.Length - 1
-                                    log("Copying " & pkgsnam(i).ToString & ". The installer may freeze for up to 5 Minutes.")
-                                    'Copy the required files for installation.
-                                    Select Case pkgsnam(i).ToString
-                                        Case "DrWatsonX64"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\DrWatsonX64\dw20sharedamd64.msi", "C:\Onecare\dw20shared.msi")
-                                        Case "GTOneCare"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\GTOneCare\GTOneCare.msi", "C:\Onecare\GTOneCare.msi")
-                                        Case "Idcrl"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Idcrl\Idcrl.msi", "C:\Onecare\Idcrl.msi")
-                                        Case "Backup"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Backup\PXEngine.msi", "C:\Onecare\PXEngine.msi")
-                                        Case "WinSS"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\WinSS\WinSS.msi", "C:\Onecare\WinSS.msi")
-                                        Case "AMSigs"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Pkgs\x64\mpam-fe.exe.exe", "C:\Onecare\mpam-fe.exe")
-                                        Case "AVBits"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\AVBits\mp_AVBits.msi", "C:\Onecare\mp_AVBits.msi")
-                                        Case "Firewall"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Firewall\MPSSetup.msi", "C:\Onecare\MPSSetup.msi")
-                                        Case "OneCareResources"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\OneCareResources\OCLocRes.msi", "C:\Onecare\OCLocRes.msi")
-                                        Case "Upgrade"
-                                            log("Upgrade caught, finished copying...")
-                                            Exit Select
-                                    End Select
-                                    log("Finished copying file...")
-                                    ProgressBar2.Increment(2.5)
-                                Next
+                                log("2.0 Disc ")
+                                filesToCopy = {"Pkgs\dw20sharedamd64.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\x64\winss.cab", "Pkgs\x64\mpam-fe.exe", "Pkgs\x64\vista\en-gb\AV.cab", "Pkgs\x64\vista\en-gb\MPSSetup.cab", "Pkgs\x64\vista\en-gb\OCLocRes.cab", "Pkgs\x64\vista\en-gb\Upgrade.cab"}
+                                destfiles = {"dw20sharedamd64.cab", "GTOneCare.cab", "idcrl.cab", "PxEngine.cab", "winss.cab", "mpam-fe.exe", "AV.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
                             Case "2.5"
-                                For i = 0 To pkgsnam.Length - 1
-                                    log("Copying " & pkgsnam(i).ToString & ". The installer may freeze for up to 5 Minutes.")
-                                    'Copy the required files for installation.
-                                    Select Case pkgsnam(i).ToString
-                                        Case "DrWatsonX64"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\DrWatsonX64\dw20sharedamd64.msi", "C:\Onecare\dw20shared.msi")
-                                        Case "GTOneCare"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\GTOneCare\GTOneCare.msi", "C:\Onecare\GTOneCare.msi")
-                                        Case "Idcrl"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Idcrl\Idcrl.msi", "C:\Onecare\Idcrl.msi")
-                                        Case "Backup"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Backup\PXEngine.msi", "C:\Onecare\PXEngine.msi")
-                                        Case "WinSS"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\WinSS\WinSS.msi", "C:\Onecare\WinSS.msi")
-                                        Case "AMSigs"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Pkgs\ByProc\x64\mpam-fe.exe.exe", "C:\Onecare\mpam-fe.exe")
-                                        Case "AVBits"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\AVBits\mp_AVBits.msi", "C:\Onecare\mp_AVBits.msi")
-                                        Case "Firewall"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Firewall\MPSSetup.msi", "C:\Onecare\MPSSetup.msi")
-                                        Case "OneCareResources"
-                                            My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\OneCareResources\OCLocRes.msi", "C:\Onecare\OCLocRes.msi")
-                                        Case "Upgrade"
-                                            log("Upgrade caught, finished copying...")
-                                            Exit Select
-                                    End Select
-                                    log("Finished copying file...")
-                                    ProgressBar2.Increment(2.5)
-                                Next
-
+                                log("2.5 Disc")
+                                filesToCopy = {"Pkgs\ByProc\x64\dw20sharedamd64.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\ByProc\x64\winss.cab", "Pkgs\ByProc\x64\mpam-fe.exe", "Pkgs\ByProcMarket\x64\en-us\AV.cab", "Pkgs\ByProcOSMarket\x64\vista\en-us\MPSSetup.cab", "Pkgs\ByProcMarket\x64\en-gb\OCLocRes.cab", "Pkgs\ByMarket\en-us\Upgrade.cab"}
+                                destfiles = {"dw20sharedamd64.cab", "GTOneCare.cab", "idcrl.cab", "PxEngine.cab", "winss.cab", "mpam-fe.exe", "AV.cab", "MPSSetup.cab", "OCLesRes.cab", "Upgrade.cab"}
                         End Select
 
-                        log("Copy section finished.")
+                    Case False
+                        log("Current installation type is x32.")
+                        Select Case globs.discVersion
+                            Case "1.5"
+                                filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\vista\en-gb\AV.cab", "Pkgs\x86\vista\en-gb\MPSSetup.cab", "Pkgs\x86\vista\en-gb\OCLocRes.cab", "Pkgs\x86\vista\en-gb\Upgrade.cab"}
+                                destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab", "AV.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                            Case "2.0"
+                                filesToCopy = {"Pkgs\dw20shared.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x64\vista\en-gb\AV.cab", "Pkgs\x86\vista\en-gb\MPSSetup.cab", "Pkgs\x86\vista\en-gb\OCLocRes.cab", "Pkgs\x86\vista\en-gb\Upgrade.cab"}
+                                destfiles = {"dw20shared.cab", "GTOneCare.cab", "idcrl.cab", "PxEngine.cab", "winss.cab", "mpam-fe.exe", "AV.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                            Case "2.5"
+                                filesToCopy = {"Pkgs\dw20shared.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\ByProc\x86\winss.cab", "Pkgs\ByProc\x86\mpam-fe.exe", "Pkgs\ByProcMarket\x86\en-us\AV.cab", "Pkgs\ByProcOSMarket\x86\vista\en-us\MPSSetup.cab", "Pkgs\ByProcMarket\x86\en-gb\OCLocRes.cab", "Pkgs\ByMarket\en-us\Upgrade.cab"}
+                                destfiles = {"dw20shared.cab", "GTOneCare.cab", "idcrl.cab", "PxEngine.cab", "winss.cab", "mpam-fe.exe", "AV.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                        End Select
 
+                End Select
+            Case "XP"
+                log("Current OS type is XP")
+                Select Case isx64install
 
-
-
-
-                        '=====================================
-                        ' PHASE 6 - ATTEMPT INSTALL MSI PKGS
-                        '=====================================
-
-                        log("Beginning BINST.")
-                        'This is dreadful I know. The irony of it not working too eh.
-                        log("Attempting an automated BOINC installation. This usually doesn't go very well.")
-                        installPackage("AVBits", "c:\Windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\mp_AVBits.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\AVBitsInstall.log" & Chr(34) & " INSTALLDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Antivirus" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("MPAM-FE", "C:\OneCare\mpam-fe.exe", "/q ONECARE")
-                        ProgressBar1.Increment(5)
-                        installPackage("PXEngine", "c:\Windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\PxEngine.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\BackupInstall.log" & Chr(34) & " ALLUSERS=1 ARPSYSTEMCOMPONENT=1 REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("DrWatsonX86", "c:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\dw20shared.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\WatsonInstall.log" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34) & " APPGUID=D07A8E7E-D324-4945-BA8C-E532AD008FF3 REINSTALL=ALL REINSTALLMODE=vomus")
-                        ProgressBar1.Increment(5)
-                        installPackage("Firewall", "c:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\MPSSetup.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\FWInstall.log" & Chr(34) & " INSTALLDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Firewall" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("OCLocRes", "C:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\OCLocRes.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\ResourceInstall.log" & Chr(34) & " TARGETFOLDER=" & Chr(34) & "Microsoft Windows OneCare Live" & Chr(34) & " ALLUSERS=1 ARPSYSTEMCOMPONENT=1 REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("WinSS", "C:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\WinSS.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\WinSSInstall.log" & Chr(34) & " TARGETFOLDER=" & Chr(34) & "Microsoft Windows OneCare Live" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("Idcrl", "C:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\Idcrl.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\IdcrlInstall.log" & Chr(34) & " ALLUSERS=1 ARPSYSTEMCOMPONENT=1 TARGETDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("GTOneCare", "C:\Windows\System32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\GTOneCare.msi" & Chr(34) & " /qn SYSLANGID=en-us /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\GTOneCare.log" & Chr(34) & " INSTALLDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\GTOneCare" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        '=====================================
-                        ' PHASE 7 - BOINC
-                        '=====================================
-                        log("BOINC")
-                        Try
-                            'Deploy BOINC and have InstallPackage handle it. This will pause the installer until BOINC exitst, by which point, The Windows Live OneCare service will have started.
-                            My.Computer.FileSystem.WriteAllBytes("C:\OneCare\boinc.bat", My.Resources.binst_oc, False)
-                            installPackage("Attempted BOINC Automation", "C:\OneCare\boinc.bat", "")
-                            ProgressBar2.Increment(10)
-                        Catch ex As Exception
-                        End Try
-                    Catch ex As Exception
+                    Case True
+                        log("Current installation type is x64.")
                         SetupCancelled.Show()
-                        SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Unable to create copy installation files.."
-                        Me.Close()
-                    End Try
-                Else
-                    'BINSTALL is now required, Installer doesn't work without it.
-                    SetupCancelled.Show()
-                    SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "An invalid install type was selected."
-                    Me.Close()
-                End If
-                '========================================
-                ' PHASE 8 - WINNER WINNER CHICKEN DINNER
-                '========================================
-                log("Breakout; finish.")
-                SetupComplete.Show()
-                Me.Close()
+                        SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
+                        Return False
+                        ' Select Case globs.discVersion
+                        '     '1.5 Gold does not support 64bit operating systems at all.
+                        ' Case "1.5"
+                        ' log("Oops, you have a 64 Bit Operating system. These rare V1.5 Gold Discs won't work with that.")
+                        'SetupCancelled.Show()
+                        'SetupCancelled.Label1.Text = ("Unsupported Operating System Architecture" & Environment.NewLine & Environment.NewLine & "Unfortunately, the version of OneCare you're attempting to use (A version 1.5 'Gold' Disc), is only supported on the following: " & Environment.NewLine & Environment.NewLine &
+                        '                           "Windows XP Service Pack 2: 32 Bit" & Environment.NewLine &
+                        '                          "Windows Vista: 32 Bit" & Environment.NewLine & Environment.NewLine &
+                        '                         "Your system is running a 64 Bit installation and thus is unsupported for installation. You'll need a Version 2.0 or Version 2.5 disc to continue.")
+                        '
+                        'Me.Close() '
+                        'Exit Function
+                        ' Case "2.0"
+                        '     filesToCopy = {"", ""}
+                        '     destfiles = {"", ""}
+                        ' Case "2.5"
+                        '    filesToCopy = {"", ""}
+                        '    destfiles = {"", ""}
+                        ' End Select
 
+                    Case False
+
+                        SetupCancelled.Show()
+                        SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
+                        Return False
+                        ' log("Current installation type is x32.")
+                        ' Select Case globs.discVersion
+                        ' Case "1.5"
+                        '     'not finished
+                        '     filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab"}
+                        '     destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab"}
+                        ' Case "2.0"
+                        '     filesToCopy = {"", ""}
+                        '     destfiles = {"", ""}
+                        ' Case "2.5"
+                        '     filesToCopy = {"", ""}
+                        '     destfiles = {"", ""}
+                        'End Select
+                End Select
+            Case Else
+                log("Current OS type is not supported. Cancelling the installation.")
+                log("Unsupported Operating System detected. If you're trying to use Longhorn or a beta, it might be worth trying the 'ByPass OS' Checkbox. Please note this will set it to Vista however.")
+                cancelInstallation("Unsupported Operating System", "Unfortunately the operating system you're currently running is not compatible with the disc you have." & Environment.NewLine &
+                "For V1.5: XP SP2 or Vista 32 Bit ONLY" & Environment.NewLine &
+                "For V2.0: XP 32Bit SP2 or Vista 32/64 Bit ONLY" & Environment.NewLine &
+                "For V2.5: XP 32Bit SP2 or Vista 32/64 Bit ONLY")
+        End Select
+        'Update the progressbar to match the files that need to be copied.
+        log("Updating Progress bar information")
+        ProgressBar1.Value = 0
+        ProgressBar1.Maximum = filesToCopy.Length
+        'Loop through the files to copy.
+        log("Preparing to copy files...")
+        For i = 0 To filesToCopy.Length - 1
+            log("Downloading file " & destfiles(i).ToString & " from disc at " & filesToCopy(i).ToString) : Label2.Text = "Downloading file " & destfiles(i).ToString & " from disc..."
+            Try
+                My.Computer.FileSystem.CopyFile(globs.installationmediapath & filesToCopy(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & destfiles(i))
+                ProgressBar1.Increment(1)
+                log("Copy complete.")
+                'Wahey, everything copied.
+            Catch ex As Exception
+                log("Failed to copy file " & destfiles(i).ToString & " from origin location " & filesToCopy(i).ToString) : log(ex.Message.ToString)
+                errorType = "Installation failed due to a file download error from disc."
+                errorLog = ("OneCare Rewritten failed to download file '" & destfiles(i).ToString & " from the origin disc location of " & filesToCopy(i).ToString & Environment.NewLine & Environment.NewLine & "The specific error was: " & ex.Message.ToString & Environment.NewLine & Environment.NewLine & "If this continues to fail, please log an error in Github.")
+                'Returning false will cancel the install for us. No need to call cancelinstallation here.
+                Return False
+            End Try
+            System.Threading.Thread.Sleep(1000)
+        Next
+        Label2.Text = "Download files from disc complete."
+        Return True
+
+    End Function
+
+    Function extractFiles()
+        'Extract (expand) the cabinet files from the disc, it's faster to do this from the hard drive/SSD rather than directly from the disc and also
+        'easier if we need to pickup from a previously failed installation.
+        'This is ran as a function so we can return true or false based on whether or not it was successful.
+        Me.TopMost = True 'This prevents the CMD windows that wil flash up from breaking the GUI, this occurs because the thread gets hung whilst it continuously calls CMD to expand files.
+        'Set progressbar values to represent how many files are to be extracted.
+        ProgressBar3.Value = 0
+        ProgressBar3.Maximum = destfiles.Length - 1
+        log("Expanding files now.")
+        For i = 0 To destfiles.Length - 1
+            Label5.Text = "Extracting " & destfiles(i) & "..."
+            log("Expanding " & i & " of " & destfiles.Length & ": " & destfiles(i).ToString)
+            If destfiles(i).Contains(".exe") Then
+                log("EXE detection, redirecting...")
+                Me.TopMost = False
+                log("Copying file now, please wait...")
+                copyFile(destfiles(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & destfiles(i), "c:\OneCare\" & destfiles(i))
+                Me.TopMost = True
+                Me.Refresh()
+                System.Threading.Thread.Sleep(1000)
             Else
-                'Proceed with 32-Bit Installation
-                'These are the package files relative to installmedia path
-                Dim pkgsx86 = {"Pkgs\dw20shared.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\vista\en-gb\AV.cab", "Pkgs\x86\vista\en-gb\MPSSetup.cab", "Pkgs\x86\vista\en-gb\OCLocRes.cab", "Pkgs\x86\vista\en-gb\Upgrade.cab"}
-                'These are the names of the packages
-                Dim pkgsnam = {"DrWatsonX86", "GTOneCare", "Idcrl", "Backup", "WinSS", "AMSigs", "AVBits", "Firewall", "OneCareResources", "Upgrade"}
-                'This portion utilises the original install.xml file.
-                log("Copying packages to the local disk now...")
-                For i = 0 To pkgsx86.Length - 1
-                    'This portion loops through all the cabinet files and MPAM-FE so we can copy them to the temporary folder for extraction.
-                    log("Copying application " & pkgsnam(i).ToString & " located at " & pkgsx86(i).ToString)
-                    If pkgsx86(i).Contains("mpam-fe.exe") Then ' We don't want to copy MPAM-FE as a cab file, it's an executable.
-                        copyFile(pkgsnam(i), globs.installationmediapath & pkgsx86(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsx86(i) & ".exe")
-                    Else
-                        copyFile(pkgsnam(i), globs.installationmediapath & pkgsx86(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsx86(i) & ".cab")
-                    End If
-                    ProgressBar1.Increment(ProgressBar1.Maximum / pkgsx86.Length - 1)
-                Next
-                ProgressBar1.Increment(ProgressBar1.Maximum - ProgressBar1.Value)
-                log("Finished copying packages.") : Label2.Text = "Download complete" : log("Beginning to expand the copied files now. This may take some time.")
-                'Cool, now we can begin extraction.
-                For i = 0 To pkgsx86.Length - 1
-                    If pkgsnam(i) = "AMSigs" Then 'AMSigs / MPAM-FE is not a cabinet, we do not want to extract this.
-                    Else
-                        log("Expanding " & pkgsnam(i).ToString)
-                        Try
-                            'This creates a separate folder for each package during extraction to keep things clean
-                            My.Computer.FileSystem.CreateDirectory(FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsnam(i).ToString)
-                            'Here we call expandCab which will allow the disk a second to sleep, then extract the cabinet.
-                            expandCab(pkgsnam(i).ToString, globs.installationmediapath & pkgsx86(i).ToString, FileIO.SpecialDirectories.Temp & "\OCSetup\" & pkgsnam(i).ToString)
-                        Catch ex As Exception
-                            'Crash out, somethings failed expanding. OneCare doesn't work correctly if all packages aren't installed in the correct order.
-                            'Continuing to install would require rolling back the operating system to a previous state before the installer was ran.
-                            SetupCancelled.Show() : SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Unable to create expansion folder for " & pkgsnam(i).ToString
-                            Me.Close()
-                        End Try
-                    End If
-                    ProgressBar2.Increment(5)
-                Next
-                log("Package Expansion finished.")
-
-                'BInstall is now default as the installer for some reason can't execute the MSI's despite having the correct args?
-                If globs.isBinstInstall = True Then
-                    log("Binst Specified. The installer may hang whilst this processes.")
-                    log("Creating folders...")
-                    Try
-                        'Create the folder where BOINC will be placed. We need to copy all of our packages and MPAM-FE here.
-                        log("Creating OneCare folder...")
-                        My.Computer.FileSystem.CreateDirectory("c:\OneCare")
-                        log("Creating OneCare Live folder")
-                        'Create the required folders for MSI Execution. Without these two folders, MSIEXEC will fail as it expects the logging location to exist.
-                        My.Computer.FileSystem.CreateDirectory("C:\Program Files\Microsoft Windows OneCare Live")
-                        log("Creating OneCare Live Logs folder...")
-                        My.Computer.FileSystem.CreateDirectory("C:\Program Files\Microsoft Windows OneCare Live\Logs")
-                    Catch ex As Exception
-                        'Crash out, we don't want a partial installation.
-                        SetupCancelled.Show()
-                        SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Unable to create folders for BINST."
-                        Me.Close()
-                    End Try
-                    Try
-                        For i = 0 To pkgsnam.Length - 1
-                            log("Copying " & pkgsnam(i).ToString & ". The installer may freeze for up to 5 Minutes.")
-                            'Copy the required files for installation.
-                            Select Case pkgsnam(i).ToString
-                                Case "DrWatsonX86"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\DrWatsonX86\dw20shared.msi", "C:\Onecare\dw20shared.msi")
-                                Case "GTOneCare"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\GTOneCare\GTOneCare.msi", "C:\Onecare\GTOneCare.msi")
-                                Case "Idcrl"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Idcrl\Idcrl.msi", "C:\Onecare\Idcrl.msi")
-                                Case "Backup"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Backup\PXEngine.msi", "C:\Onecare\PXEngine.msi")
-                                Case "WinSS"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\WinSS\WinSS.msi", "C:\Onecare\WinSS.msi")
-                                Case "AMSigs"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Pkgs\x86\mpam-fe.exe.exe", "C:\Onecare\mpam-fe.exe")
-                                Case "AVBits"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\AVBits\mp_AVBits.msi", "C:\Onecare\mp_AVBits.msi")
-                                Case "Firewall"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\Firewall\MPSSetup.msi", "C:\Onecare\MPSSetup.msi")
-                                Case "OneCareResources"
-                                    My.Computer.FileSystem.CopyFile(FileIO.SpecialDirectories.Temp & "\OCSetup\OneCareResources\OCLocRes.msi", "C:\Onecare\OCLocRes.msi")
-                                Case "Upgrade"
-                                    Exit Select
-                            End Select
-                            ProgressBar2.Increment(2.5)
-                        Next
-                        log("Beginning BINST.")
-                        'This is dreadful I know. The irony of it not working too eh.
-                        log("Attempting an automated BOINC installation. This usually doesn't go very well.")
-                        installPackage("AVBits", "c:\Windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\mp_AVBits.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\AVBitsInstall.log" & Chr(34) & " INSTALLDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Antivirus" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("MPAM-FE", "C:\OneCare\mpam-fe.exe", "/q ONECARE")
-                        ProgressBar1.Increment(5)
-                        installPackage("PXEngine", "c:\Windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\PxEngine.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\BackupInstall.log" & Chr(34) & " ALLUSERS=1 ARPSYSTEMCOMPONENT=1 REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("DrWatsonX86", "c:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\dw20shared.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\WatsonInstall.log" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34) & " APPGUID=D07A8E7E-D324-4945-BA8C-E532AD008FF3 REINSTALL=ALL REINSTALLMODE=vomus")
-                        ProgressBar1.Increment(5)
-                        installPackage("Firewall", "c:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\MPSSetup.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\FWInstall.log" & Chr(34) & " INSTALLDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Firewall" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("OCLocRes", "C:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\OCLocRes.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\ResourceInstall.log" & Chr(34) & " TARGETFOLDER=" & Chr(34) & "Microsoft Windows OneCare Live" & Chr(34) & " ALLUSERS=1 ARPSYSTEMCOMPONENT=1 REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("WinSS", "C:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\WinSS.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\WinSSInstall.log" & Chr(34) & " TARGETFOLDER=" & Chr(34) & "Microsoft Windows OneCare Live" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("Idcrl", "C:\windows\system32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\Idcrl.msi" & Chr(34) & " /qn /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\IdcrlInstall.log" & Chr(34) & " ALLUSERS=1 ARPSYSTEMCOMPONENT=1 TARGETDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        installPackage("GTOneCare", "C:\Windows\System32\msiexec.exe", "/i " & Chr(34) & "C:\Onecare\GTOneCare.msi" & Chr(34) & " /qn SYSLANGID=en-us /l*v " & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\Logs\GTOneCare.log" & Chr(34) & " INSTALLDIR=" & Chr(34) & "%PROGRAMFILES%\Microsoft Windows OneCare Live\GTOneCare" & Chr(34) & " REBOOT=" & Chr(34) & "ReallySuppress" & Chr(34))
-                        ProgressBar1.Increment(5)
-                        Try
-                            'Deploy BOINC and have InstallPackage handle it. This will pause the installer until BOINC exitst, by which point, The Windows Live OneCare service will have started.
-                            My.Computer.FileSystem.WriteAllBytes("C:\OneCare\boinc.bat", My.Resources.binst_oc, False)
-                            installPackage("Attempted BOINC Automation", "C:\OneCare\boinc.bat", "")
-                            ProgressBar2.Increment(10)
-                        Catch ex As Exception
-                        End Try
-                    Catch ex As Exception
-                        SetupCancelled.Show()
-                        SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "Unable to create copy installation files.."
-                        Me.Close()
-                    End Try
+                If expandCabXP(destfiles(i), FileIO.SpecialDirectories.Temp & "\OCSetup\" & destfiles(i), "c:\OneCare", True, True) = True Then
+                    ProgressBar3.Increment(1)
+                    log("Expanding " & i & " of " & destfiles.Length & ": " & destfiles(i).ToString & " complete!")
                 Else
-                    'BINSTALL is now required, Installer doesn't work without it.
-                    SetupCancelled.Show()
-                    SetupCancelled.Label1.Text = SetupCancelled.Label1.Text & Environment.NewLine & Environment.NewLine & "An invalid install type was selected."
-                    Me.Close()
+                    errorType = "Cabinet failed expansion." : errorLog = "An error occurred whilst expanding " & destfiles(i) & ". Please validate permissions and try again. "
+                    Return False
+                    Exit For
                 End If
-                SetupComplete.Show()
-                Me.Close()
             End If
-        End If
-    End Sub
 
+        Next
+        log("All files expanded successfully.")
+        Return True
+    End Function
+
+
+    Function installFiles()
+        'BOINC will usually handle this as the below for some reason just doesn't work, despite being 'technically' correct.
+        log("Beginning installation phase. Checking your disc version.")
+        Select Case globs.discVersion
+            Case "1.5"
+                log("Version " & globs.discVersion & " detected")
+                'Going to skip straight to BOINC for this.
+                Try
+                    My.Computer.FileSystem.WriteAllBytes("C:\Onecare\GoldBOINC.bat", My.Resources.GoldenBOINC, False)
+                Catch ex As Exception
+                    errorType = "Unable to copy the Gold BOINC package."
+                    errorLog = "An error occurred whilst copying the Gold BOINC package to c:\Onecare. Please validate permissions and try again. The specific error tripped was: " & ex.Message.ToString
+                    Return False
+                End Try
+                showNoWindow = True
+
+                ProgressBar2.Style = ProgressBarStyle.Marquee
+                ProgressBar2.MarqueeAnimationSpeed = 40
+                Me.TopMost = False
+                installPackage("V1.5 Gold BOINC Automation", "c:\OneCare\GoldBOINC.bat", Nothing)
+                Return True
+            Case "2.0"
+                log("Version " & globs.discVersion & " detected")
+                Try
+                    log("Writing BOINC")
+                    My.Computer.FileSystem.WriteAllBytes("C:\Onecare\BOINC.bat", My.Resources.binst_oc, False)
+                Catch ex As Exception
+                    errorType = "Unable to copy the BOINC package."
+                    errorLog = "An error occurred whilst copying the  BOINC package to c:\Onecare. Please validate permissions and try again. The specific error tripped was: " & ex.Message.ToString
+                    Return False
+                End Try
+                showNoWindow = True
+
+                ProgressBar2.Style = ProgressBarStyle.Marquee
+                ProgressBar2.MarqueeAnimationSpeed = 40
+                Me.TopMost = False
+                installPackage("V2.0 Gold BOINC Automation", "c:\OneCare\BOINC.bat", Nothing)
+                Return True
+            Case "2.5"
+                log("Version " & globs.discVersion & " detected")
+                Try
+                    log("Writing BOINC")
+                    My.Computer.FileSystem.WriteAllBytes("C:\Onecare\BOINC.bat", My.Resources.binst_oc, False)
+                Catch ex As Exception
+                    errorType = "Unable to copy the BOINC package."
+                    errorLog = "An error occurred whilst copying the  BOINC package to c:\Onecare. Please validate permissions and try again. The specific error tripped was: " & ex.Message.ToString
+                    Return False
+                End Try
+                showNoWindow = True
+                ProgressBar2.Style = ProgressBarStyle.Marquee
+                ProgressBar2.MarqueeAnimationSpeed = 40
+                Me.TopMost = False
+                installPackage("V2.5 BOINC Automation", "c:\OneCare\BOINC.bat", Nothing)
+                Return True
+
+            Case Else
+                Return False
+        End Select
+
+    End Function
+    Private showNoWindow As Boolean = False
     Sub installPackage(ByVal filetext As String, filepath As String, args As String)
         log("Package install requested for " & filetext)
         Dim als3 As New PackageInstaller
+        If showNoWindow = True Then
+            als3.useHiddenWindow = True
+        End If
         als3.filename = filetext
         als3.filepath = filepath
         als3.fileargs = args
@@ -432,16 +427,24 @@
     End Sub
 
     Sub copyFile(ByVal filetext As String, filepath As String, destpath As String)
+        log("CF Called, properties are as follows: " & Environment.NewLine &
+         "File Text: " & filetext & Environment.NewLine &
+         "File Path: " & filepath & Environment.NewLine &
+         "Dest Path: " & destpath)
         Dim als As New CF
         als.filename = filetext
         als.filepath = filepath
         als.destinationpath = destpath
         als.Location = Me.Location
+        log("Showing Box.")
         als.ShowDialog()
     End Sub
 
     Sub expandCab(ByVal filetext As String, cabfile As String, destpath As String)
         Dim als2 As New expansion
+        If showNoWindow = True Then
+            als2.useHiddenWindow = True
+        End If
         als2.filename = filetext
         als2.filepath = cabfile
         als2.destpath = destpath
@@ -458,6 +461,13 @@
             ProgressBar1.Increment(ProgressBar1.Maximum / 4)
             setuplog.Text = setuplog.Text & "."
             Timer1.Tag = Timer1.Tag + 1
+        End If
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        If isDebugBuild = True Then
+            End
+
         End If
     End Sub
 End Class

@@ -34,4 +34,16 @@
 
 
     End Sub
+
+    Private Sub bposcheck_CheckedChanged(sender As Object, e As EventArgs) Handles bposcheck.CheckedChanged
+        If bposcheck.Checked = True Then
+            globs.bypassOSCheck = True
+        Else
+            globs.bypassOSCheck = False
+        End If
+    End Sub
+
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+
+    End Sub
 End Class

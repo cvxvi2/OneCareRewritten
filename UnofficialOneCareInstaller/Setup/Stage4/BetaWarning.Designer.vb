@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class SetupCancelled
+Partial Class BetaWarning
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -22,72 +22,114 @@ Partial Class SetupCancelled
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
-        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SetupCancelled))
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(BetaWarning))
+        Me.Label4 = New System.Windows.Forms.Label()
+        Me.Button3 = New System.Windows.Forms.Button()
+        Me.Button1 = New System.Windows.Forms.Button()
         Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
+        Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
+        'Label4
+        '
+        Me.Label4.AutoSize = True
+        Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Location = New System.Drawing.Point(14, 67)
+        Me.Label4.Name = "Label4"
+        Me.Label4.Size = New System.Drawing.Size(94, 24)
+        Me.Label4.TabIndex = 68
+        Me.Label4.Text = "Warning!"
+        '
+        'Button3
+        '
+        Me.Button3.Location = New System.Drawing.Point(243, 359)
+        Me.Button3.Name = "Button3"
+        Me.Button3.Size = New System.Drawing.Size(91, 23)
+        Me.Button3.TabIndex = 67
+        Me.Button3.Text = "&No"
+        Me.Button3.UseVisualStyleBackColor = True
+        '
+        'Button1
+        '
+        Me.Button1.Location = New System.Drawing.Point(340, 359)
+        Me.Button1.Name = "Button1"
+        Me.Button1.Size = New System.Drawing.Size(91, 23)
+        Me.Button1.TabIndex = 65
+        Me.Button1.Text = "&Yes"
+        Me.Button1.UseVisualStyleBackColor = True
+        '
         'Button2
         '
         Me.Button2.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.Button2.Location = New System.Drawing.Point(435, 360)
+        Me.Button2.Location = New System.Drawing.Point(437, 359)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(91, 23)
-        Me.Button2.TabIndex = 10
-        Me.Button2.Text = "Finish"
+        Me.Button2.TabIndex = 66
+        Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.Location = New System.Drawing.Point(12, 77)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(514, 266)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Windows Live OneCare Rewritten did not install successfully."
         '
         'PictureBox2
         '
         Me.PictureBox2.BackColor = System.Drawing.SystemColors.Control
-        Me.PictureBox2.Location = New System.Drawing.Point(-2, 346)
+        Me.PictureBox2.Location = New System.Drawing.Point(0, 345)
         Me.PictureBox2.Name = "PictureBox2"
         Me.PictureBox2.Size = New System.Drawing.Size(542, 58)
-        Me.PictureBox2.TabIndex = 9
+        Me.PictureBox2.TabIndex = 64
         Me.PictureBox2.TabStop = False
+        '
+        'Label1
+        '
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(15, 105)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(417, 170)
+        Me.Label1.TabIndex = 63
+        Me.Label1.Text = resources.GetString("Label1.Text")
         '
         'PictureBox1
         '
         Me.PictureBox1.Image = Global.UnofficialOneCareInstaller.My.Resources.Resources.banner
-        Me.PictureBox1.Location = New System.Drawing.Point(-2, -1)
+        Me.PictureBox1.Location = New System.Drawing.Point(0, -2)
         Me.PictureBox1.Name = "PictureBox1"
         Me.PictureBox1.Size = New System.Drawing.Size(542, 57)
         Me.PictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize
-        Me.PictureBox1.TabIndex = 7
+        Me.PictureBox1.TabIndex = 62
         Me.PictureBox1.TabStop = False
         '
-        'SetupCancelled
+        'BetaWarning
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(7.0!, 15.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
-        Me.ClientSize = New System.Drawing.Size(538, 395)
+        Me.ClientSize = New System.Drawing.Size(534, 390)
+        Me.ControlBox = False
+        Me.Controls.Add(Me.Label4)
+        Me.Controls.Add(Me.Button3)
+        Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.PictureBox1)
-        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
-        Me.Name = "SetupCancelled"
+        Me.Font = New System.Drawing.Font("Calibri", 10.0!)
+        Me.MaximumSize = New System.Drawing.Size(550, 429)
+        Me.MinimumSize = New System.Drawing.Size(550, 429)
+        Me.Name = "BetaWarning"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Windows Live OneCare Rewritten Installation"
+        Me.Text = "Beta Warning"
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
+
+    Friend WithEvents Label4 As Label
+    Friend WithEvents Button3 As Button
+    Friend WithEvents Button1 As Button
     Friend WithEvents Button2 As Button
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Label1 As Label

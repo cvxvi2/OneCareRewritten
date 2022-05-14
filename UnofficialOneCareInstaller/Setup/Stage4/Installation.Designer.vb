@@ -36,6 +36,8 @@ Partial Class Installation
         Me.setuplog = New System.Windows.Forms.TextBox()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.Label5 = New System.Windows.Forms.Label()
+        Me.ProgressBar3 = New System.Windows.Forms.ProgressBar()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -59,12 +61,11 @@ Partial Class Installation
         Me.Button2.TabIndex = 53
         Me.Button2.Text = "Cancel"
         Me.Button2.UseVisualStyleBackColor = True
-        Me.Button2.Visible = False
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(9, 112)
+        Me.Label1.Location = New System.Drawing.Point(6, 87)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(330, 13)
         Me.Label1.TabIndex = 50
@@ -72,12 +73,12 @@ Partial Class Installation
         '
         'Timer1
         '
-        Me.Timer1.Interval = 1000
+        Me.Timer1.Interval = 200
         Me.Timer1.Tag = "0"
         '
         'ProgressBar1
         '
-        Me.ProgressBar1.Location = New System.Drawing.Point(9, 165)
+        Me.ProgressBar1.Location = New System.Drawing.Point(9, 130)
         Me.ProgressBar1.MarqueeAnimationSpeed = 60
         Me.ProgressBar1.Name = "ProgressBar1"
         Me.ProgressBar1.Size = New System.Drawing.Size(511, 23)
@@ -92,24 +93,24 @@ Partial Class Installation
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(12, 146)
+        Me.Label2.Location = New System.Drawing.Point(6, 114)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(78, 13)
+        Me.Label2.Size = New System.Drawing.Size(126, 13)
         Me.Label2.TabIndex = 55
-        Me.Label2.Text = "Downloading..." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
+        Me.Label2.Text = "Download Files from Disc"
         '
         'Label3
         '
         Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 206)
+        Me.Label3.Location = New System.Drawing.Point(6, 198)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(57, 13)
+        Me.Label3.Size = New System.Drawing.Size(34, 13)
         Me.Label3.TabIndex = 57
-        Me.Label3.Text = "Installing..."
+        Me.Label3.Text = "Install"
         '
         'ProgressBar2
         '
-        Me.ProgressBar2.Location = New System.Drawing.Point(9, 225)
+        Me.ProgressBar2.Location = New System.Drawing.Point(9, 214)
         Me.ProgressBar2.MarqueeAnimationSpeed = 60
         Me.ProgressBar2.Name = "ProgressBar2"
         Me.ProgressBar2.Size = New System.Drawing.Size(511, 23)
@@ -119,7 +120,7 @@ Partial Class Installation
         '
         Me.Label4.AutoSize = True
         Me.Label4.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold)
-        Me.Label4.Location = New System.Drawing.Point(9, 71)
+        Me.Label4.Location = New System.Drawing.Point(5, 63)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(317, 24)
         Me.Label4.TabIndex = 58
@@ -156,12 +157,31 @@ Partial Class Installation
         Me.PictureBox1.TabIndex = 49
         Me.PictureBox1.TabStop = False
         '
+        'Label5
+        '
+        Me.Label5.AutoSize = True
+        Me.Label5.Location = New System.Drawing.Point(6, 156)
+        Me.Label5.Name = "Label5"
+        Me.Label5.Size = New System.Drawing.Size(40, 13)
+        Me.Label5.TabIndex = 61
+        Me.Label5.Text = "Extract"
+        '
+        'ProgressBar3
+        '
+        Me.ProgressBar3.Location = New System.Drawing.Point(9, 172)
+        Me.ProgressBar3.MarqueeAnimationSpeed = 60
+        Me.ProgressBar3.Name = "ProgressBar3"
+        Me.ProgressBar3.Size = New System.Drawing.Size(511, 23)
+        Me.ProgressBar3.TabIndex = 60
+        '
         'Installation
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(538, 395)
+        Me.Controls.Add(Me.Label5)
+        Me.Controls.Add(Me.ProgressBar3)
         Me.Controls.Add(Me.setuplog)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label3)
@@ -196,4 +216,6 @@ Partial Class Installation
     Friend WithEvents ProgressBar2 As ProgressBar
     Friend WithEvents Label4 As Label
     Friend WithEvents setuplog As TextBox
+    Friend WithEvents Label5 As Label
+    Friend WithEvents ProgressBar3 As ProgressBar
 End Class

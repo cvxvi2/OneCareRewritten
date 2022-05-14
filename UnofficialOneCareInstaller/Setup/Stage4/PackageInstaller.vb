@@ -1,6 +1,8 @@
 ﻿Public Class PackageInstaller
     Public filename, filepath, fileargs As String
+    Public useHiddenWindow As Boolean
     Private Sub PackageInstaller_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Me.Location = Installation.Location
         Me.MinimumSize = Me.Size : Me.MaximumSize = Me.Size
         Label4.Text = Label4.Text.Replace("{PKG}", filename)
         Me.Icon = Form1.Icon
@@ -22,10 +24,22 @@
 
     Sub InstallPackage()
         Dim ipm As New ProcessStartInfo
-        With ipm
-            .FileName = filepath
-            .Arguments = fileargs
-        End With
+        If useHiddenWindow = True Then
+            log("[PackageInstaller] Using Hidden Window...")
+            With ipm
+                .FileName = filepath
+                .Arguments = fileargs
+                .CreateNoWindow = True
+                .UseShellExecute = False
+                .WindowStyle = ProcessWindowStyle.Hidden
+            End With
+        Else
+            With ipm
+                .FileName = filepath
+                .Arguments = fileargs
+            End With
+        End If
+
         Dim expander As Process = Process.Start(ipm)
         expander.WaitForExit()
         Me.Close()
