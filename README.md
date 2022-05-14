@@ -10,9 +10,9 @@ yet to finalise the code. It's messy and dirty but currently works mostly.</p>
 <h3>Requirements</h3>
 <p>OneCare setup ISO or disc mounted, both versions of the disc will work, this app will auto detect which version you have.</p>
 <h3>Supported OSes</h3>
-<p>Windows Vista (Any edition) 32-Bit</p>
-<p>Windows Vista (Any edition) 64-Bit</p>
-<p>Windows XP is currently in-development. The installer on here won't accept it, likewise for Server 2008/r2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support will be implemented at a future date.</p>
+<p>Windows Vista (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5)</p>
+<p>Windows Vista (Any edition) 64-Bit (Disc Versions 2.0, 2.5)</p>
+<p>Windows XP (Any edition, SP2 Only) is currently in-development. The installer on here (as of 0.1.3) currently won't accept it, likewise for Server 2008/r2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support is functional under beta-testing using BOINC but not implemented into the installer</p>
 <h3>Project Properties</h3>
 <p>Platform: x86/32-Bit</p>
 <p>Targetting Framework: .net 4.0</p>
