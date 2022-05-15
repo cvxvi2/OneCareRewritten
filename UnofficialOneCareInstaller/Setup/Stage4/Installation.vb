@@ -264,7 +264,7 @@
                         Select Case globs.discVersion
                             Case "1.5"
                                 'not finished
-                                filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\xp\dotnet.cab", "Pkgs\x86\en-gb\AV.cab", "Pkgs\x86\en-gb\KB914882.cab", "Pkgs\x86\en-gb\MPSSetup.cab", "Pkgs\x86\en-gb\OCLocRes.cab", "Pkgs\x86\en-gb\Upgrade.cab"}
+                                filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\xp\dotnet.cab", "Pkgs\x86\xp\en-gb\AV.cab", "Pkgs\x86\xp\en-gb\KB914882.cab", "Pkgs\x86\xp\en-gb\MPSSetup.cab", "Pkgs\x86\xp\en-gb\OCLocRes.cab", "Pkgs\x86\xp\en-gb\Upgrade.cab"}
                                 destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab", "dotnet.cab", "AV.cab", "KB914882.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
                             Case Else
                                 SetupCancelled.Show()
@@ -359,8 +359,10 @@
                 log("Version " & globs.discVersion & " detected")
                 Select Case OSType
                     Case "XP"
+                        Me.TopMost = False
                         log("Installing pre-requisites...")
                         installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
+                        Me.TopMost = True
                     Case Else
                         'Do nothing, not needed.
                 End Select
