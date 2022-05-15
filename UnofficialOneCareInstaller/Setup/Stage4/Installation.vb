@@ -359,10 +359,17 @@
                 log("Version " & globs.discVersion & " detected")
                 Select Case OSType
                     Case "XP"
-                        Me.TopMost = False
-                        log("Installing pre-requisites...")
-                        installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
-                        Me.TopMost = True
+                        If Environment.OSVersion.VersionString.Contains("Service Pack 3") Then
+                            errorType = "Unsupported Service Pack"
+                            errorLog = "Unfortunately, Version 1.5 'Gold' discs only support Service Pack 2 for XP. You'll need a V2.0 or V2.5 disc or newer to install on XP."
+                            Return False
+                        Else
+                            Me.TopMost = False
+                            log("Installing pre-requisites...")
+                            installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
+                            Me.TopMost = True
+                        End If
+
                     Case Else
                         'Do nothing, not needed.
                 End Select

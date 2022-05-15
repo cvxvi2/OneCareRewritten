@@ -1,5 +1,11 @@
 ﻿Public Class preinst
     Private Sub preinst_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        Try
+            Label15.Text = Environment.OSVersion.VersionString
+        Catch es As Exception
+        End Try
+
+
         Me.MaximumSize = Me.Size
         Me.MinimumSize = Me.Size
         Me.Icon = Form1.Icon

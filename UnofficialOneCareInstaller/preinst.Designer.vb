@@ -57,6 +57,7 @@ Partial Class preinst
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -389,6 +390,7 @@ Partial Class preinst
         '
         'TabPage6
         '
+        Me.TabPage6.Controls.Add(Me.Label15)
         Me.TabPage6.Controls.Add(Me.GroupBox3)
         Me.TabPage6.Controls.Add(Me.Label13)
         Me.TabPage6.Location = New System.Drawing.Point(4, 22)
@@ -440,6 +442,15 @@ Partial Class preinst
         Me.Label13.Size = New System.Drawing.Size(516, 19)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "If OneCare is already installed, you can perform some maintenance on it here."
+        '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(4, 331)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(43, 13)
+        Me.Label15.TabIndex = 2
+        Me.Label15.Text = "OS Info"
         '
         'preinst
         '
@@ -515,4 +526,5 @@ Partial Class preinst
     Friend WithEvents Button5 As Button
     Friend WithEvents Label14 As Label
     Friend WithEvents CheckBox1 As CheckBox
+    Friend WithEvents Label15 As Label
 End Class
