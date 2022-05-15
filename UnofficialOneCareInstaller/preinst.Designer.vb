@@ -45,6 +45,7 @@ Partial Class preinst
         Me.Label11 = New System.Windows.Forms.Label()
         Me.TabPage5 = New System.Windows.Forms.TabPage()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.bposcheck = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.RadioButton3 = New System.Windows.Forms.RadioButton()
@@ -56,7 +57,6 @@ Partial Class preinst
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -73,10 +73,10 @@ Partial Class preinst
         '
         Me.Label4.AutoSize = True
         Me.Label4.BackColor = System.Drawing.SystemColors.Control
-        Me.Label4.Font = New System.Drawing.Font("Calibri", 18.0!, System.Drawing.FontStyle.Bold)
+        Me.Label4.Font = New System.Drawing.Font("Calibri", 18.0!)
         Me.Label4.Location = New System.Drawing.Point(166, 84)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(349, 29)
+        Me.Label4.Size = New System.Drawing.Size(341, 29)
         Me.Label4.TabIndex = 64
         Me.Label4.Text = "Windows Live OneCare Rewritten" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10)
         '
@@ -114,6 +114,7 @@ Partial Class preinst
         Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage5)
         Me.TabControl1.Controls.Add(Me.TabPage6)
+        Me.TabControl1.HotTrack = True
         Me.TabControl1.Location = New System.Drawing.Point(162, 115)
         Me.TabControl1.Name = "TabControl1"
         Me.TabControl1.SelectedIndex = 0
@@ -152,9 +153,9 @@ Partial Class preinst
         Me.Label10.Font = New System.Drawing.Font("Microsoft Sans Serif", 10.25!, System.Drawing.FontStyle.Bold)
         Me.Label10.Location = New System.Drawing.Point(6, 285)
         Me.Label10.Name = "Label10"
-        Me.Label10.Size = New System.Drawing.Size(318, 17)
+        Me.Label10.Size = New System.Drawing.Size(176, 17)
         Me.Label10.TabIndex = 69
-        Me.Label10.Text = "Select the Install tab at the top to continue"
+        Me.Label10.Text = "Select Next to continue"
         '
         'TabPage2
         '
@@ -228,9 +229,9 @@ Partial Class preinst
         Me.Button3.Font = New System.Drawing.Font("Microsoft Sans Serif", 12.25!)
         Me.Button3.Image = Global.UnofficialOneCareInstaller.My.Resources.Resources.ocrw64
         Me.Button3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.Button3.Location = New System.Drawing.Point(3, 257)
+        Me.Button3.Location = New System.Drawing.Point(3, 260)
         Me.Button3.Name = "Button3"
-        Me.Button3.Size = New System.Drawing.Size(605, 90)
+        Me.Button3.Size = New System.Drawing.Size(605, 87)
         Me.Button3.TabIndex = 72
         Me.Button3.Text = "Install Now"
         Me.Button3.UseVisualStyleBackColor = True
@@ -309,6 +310,16 @@ Partial Class preinst
         Me.GroupBox2.TabIndex = 4
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Initial Setup"
+        '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(6, 42)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(97, 17)
+        Me.CheckBox1.TabIndex = 2
+        Me.CheckBox1.Text = "Show Live Log"
+        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'bposcheck
         '
@@ -428,16 +439,6 @@ Partial Class preinst
         Me.Label13.Size = New System.Drawing.Size(516, 19)
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "If OneCare is already installed, you can perform some maintenance on it here."
-        '
-        'CheckBox1
-        '
-        Me.CheckBox1.AutoSize = True
-        Me.CheckBox1.Location = New System.Drawing.Point(6, 42)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(97, 17)
-        Me.CheckBox1.TabIndex = 2
-        Me.CheckBox1.Text = "Show Live Log"
-        Me.CheckBox1.UseVisualStyleBackColor = True
         '
         'preinst
         '

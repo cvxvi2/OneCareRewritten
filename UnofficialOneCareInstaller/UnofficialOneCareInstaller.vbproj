@@ -100,6 +100,12 @@
     <Compile Include="preinst.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="preinstoptions.Designer.vb">
+      <DependentUpon>preinstoptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="preinstoptions.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Setup\init1.Designer.vb">
       <DependentUpon>init1.vb</DependentUpon>
     </Compile>
@@ -185,6 +191,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="preinst.resx">
       <DependentUpon>preinst.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="preinstoptions.resx">
+      <DependentUpon>preinstoptions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\init1.resx">
       <DependentUpon>init1.vb</DependentUpon>
