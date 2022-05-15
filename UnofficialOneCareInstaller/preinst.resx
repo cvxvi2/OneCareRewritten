@@ -130,8 +130,8 @@ Installation Notes:
 -If you're attempting a reinstall after a failed initial install, please delete %temp%\OCSetup
  and c:\OneCare
 -Windows XP is only supported with 2.5 discs on SP3.
--Backup is known to cause a "not installed" message.
--V2.5 Discs cause missing file 'dw20sharedamd64.cab' error. This is being worked on.
+-Backup is only functional on V1.5 Gold discs.
+
 
 Requirements:
 -Microsoft .Net 4.0

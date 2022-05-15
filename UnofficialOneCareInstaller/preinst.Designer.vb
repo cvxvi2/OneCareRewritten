@@ -100,9 +100,10 @@ Partial Class preinst
         'Label2
         '
         Me.Label2.AutoSize = True
+        Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.75!)
         Me.Label2.Location = New System.Drawing.Point(3, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(432, 195)
+        Me.Label2.Size = New System.Drawing.Size(494, 225)
         Me.Label2.TabIndex = 68
         Me.Label2.Text = resources.GetString("Label2.Text")
         '
@@ -250,10 +251,10 @@ Partial Class preinst
         '
         Me.Label3.AutoSize = True
         Me.Label3.BackColor = System.Drawing.Color.WhiteSmoke
-        Me.Label3.Font = New System.Drawing.Font("Microsoft Sans Serif", 14.0!, System.Drawing.FontStyle.Bold)
+        Me.Label3.Font = New System.Drawing.Font("Calibri", 14.0!, System.Drawing.FontStyle.Bold)
         Me.Label3.Location = New System.Drawing.Point(3, 9)
         Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(162, 24)
+        Me.Label3.Size = New System.Drawing.Size(142, 23)
         Me.Label3.TabIndex = 70
         Me.Label3.Text = "Ready to install?"
         '

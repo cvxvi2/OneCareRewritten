@@ -269,8 +269,8 @@
                         ' Select Case globs.discVersion
                         ' Case "1.5"
                         '     'not finished
-                        '     filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab"}
-                        '     destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab"}
+                        '     filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab","Pkgs\x86\xp\dotnet.cab","Pkgs\x86\en-gb\AV.cab","Pkgs\x86\en-gb\KB914882.cab","Pkgs\x86\en-gb\MPSSetup.cab","Pkgs\x86\en-gb\OCLocRes.cab","Pkgs\x86\en-gb\Upgrade.cab"}
+                        '     destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab","dotnet.cab","AV.cab","KB914882.cab","MPSSetup.cab","OCLocRes.cab","Upgrade.cab"}
                         ' Case "2.0"
                         '     filesToCopy = {"", ""}
                         '     destfiles = {"", ""}
