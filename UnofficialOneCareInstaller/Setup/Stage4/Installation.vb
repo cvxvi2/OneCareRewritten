@@ -234,7 +234,6 @@
             Case "XP"
                 log("Current OS type is XP")
                 Select Case isx64install
-
                     Case True
                         log("Current installation type is x64.")
                         SetupCancelled.Show()
@@ -261,16 +260,17 @@
                         ' End Select
 
                     Case False
-
-                        SetupCancelled.Show()
-                        SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
-                        Return False
-                        ' log("Current installation type is x32.")
-                        ' Select Case globs.discVersion
-                        ' Case "1.5"
-                        '     'not finished
-                        '     filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab","Pkgs\x86\xp\dotnet.cab","Pkgs\x86\en-gb\AV.cab","Pkgs\x86\en-gb\KB914882.cab","Pkgs\x86\en-gb\MPSSetup.cab","Pkgs\x86\en-gb\OCLocRes.cab","Pkgs\x86\en-gb\Upgrade.cab"}
-                        '     destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab","dotnet.cab","AV.cab","KB914882.cab","MPSSetup.cab","OCLocRes.cab","Upgrade.cab"}
+                        log("Current installation type is x32.")
+                        Select Case globs.discVersion
+                            Case "1.5"
+                                'not finished
+                                filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\xp\dotnet.cab", "Pkgs\x86\en-gb\AV.cab", "Pkgs\x86\en-gb\KB914882.cab", "Pkgs\x86\en-gb\MPSSetup.cab", "Pkgs\x86\en-gb\OCLocRes.cab", "Pkgs\x86\en-gb\Upgrade.cab"}
+                                destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab", "dotnet.cab", "AV.cab", "KB914882.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                            Case Else
+                                SetupCancelled.Show()
+                                SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
+                                Return False
+                        End Select
                         ' Case "2.0"
                         '     filesToCopy = {"", ""}
                         '     destfiles = {"", ""}
@@ -357,6 +357,13 @@
         Select Case globs.discVersion
             Case "1.5"
                 log("Version " & globs.discVersion & " detected")
+                Select Case OSType
+                    Case "XP"
+                        log("Installing pre-requisites...")
+                        installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
+                    Case Else
+                        'Do nothing, not needed.
+                End Select
                 'Going to skip straight to BOINC for this.
                 Try
                     My.Computer.FileSystem.WriteAllBytes("C:\Onecare\GoldBOINC.bat", My.Resources.GoldenBOINC, False)
