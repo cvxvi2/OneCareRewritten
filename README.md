@@ -2,6 +2,10 @@
 <h3>OneCare Rewritten</h3>
 <p>This is an upload of the OneCare Rewritten project which can be found at https://onecare.cloudlillith.net. <br> This means that I've
 yet to finalise the code, due to this, Windows XP 64Bit has no support.</p>
+<h3>Getting Started</h3>
+<p>Head over to the <a href="https://github.com/cvxvi2/OneCareRewritten/releases">releases tab</a> and grab the latest release.</p>
+<p>Insert your OneCare disc, and cancel any popups that show.</p>
+<p>Launch OneCare Rewritten and follow the onscreen instructions to install.</p>
 <h3>What does this do?</h3>
 <p>This tool allows users of existing Windows Live OneCare medium to install it as normal.</p>
 <h3>Why?</h3>
