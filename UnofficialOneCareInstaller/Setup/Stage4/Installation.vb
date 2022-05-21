@@ -218,6 +218,7 @@
 
                     Case False
                         log("Current installation type is x32.")
+
                         Select Case globs.discVersion
                             Case "1.5"
                                 filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\vista\en-gb\AV.cab", "Pkgs\x86\vista\en-gb\MPSSetup.cab", "Pkgs\x86\vista\en-gb\OCLocRes.cab", "Pkgs\x86\vista\en-gb\Upgrade.cab"}
@@ -260,32 +261,54 @@
                         ' End Select
 
                     Case False
-                        log("Current installation type is x32.")
+                        log("[installation.vb] [264] Current installation type is x32.")
+                        log("[installation.vb] [265] Disc Version: " & globs.discVersion)
                         Select Case globs.discVersion
                             Case "1.5"
-                                'not finished
-                                filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\xp\dotnet.cab", "Pkgs\x86\xp\en-gb\AV.cab", "Pkgs\x86\xp\en-gb\KB914882.cab", "Pkgs\x86\xp\en-gb\MPSSetup.cab", "Pkgs\x86\xp\en-gb\OCLocRes.cab", "Pkgs\x86\xp\en-gb\Upgrade.cab"}
-                                destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab", "dotnet.cab", "AV.cab", "KB914882.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                                If Environment.OSVersion.VersionString.Contains("Service Pack 3") Then
+                                    'Idcrl 1.5 does not support SP3, only SP2.
+                                    log("Current OS type is not supported. Cancelling the installation.")
+                                    log("Unsupported Operating System detected. If you're trying to use Longhorn or a beta, it might be worth trying the 'ByPass OS' Checkbox. Please note this will set it to Vista however.")
+                                    cancelInstallation("Unsupported Operating System", "Unfortunately the operating system you're currently running is not compatible with the disc you have." & Environment.NewLine &
+                                    "For V1.5: XP SP2 or Vista 32 Bit ONLY" & Environment.NewLine &
+                                    "For V2.0: XP 32Bit SP2 or Vista 32/64 Bit ONLY" & Environment.NewLine &
+                                    "For V2.5: XP 32Bit SP2 or Vista 32/64 Bit ONLY")
+                                Else
+                                    filesToCopy = {"Pkgs\x86\dw20shared.cab", "Pkgs\x86\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\x86\msxml.cab", "Pkgs\x86\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\xp\dotnet.cab", "Pkgs\x86\xp\en-gb\AV.cab", "Pkgs\x86\xp\en-gb\KB914882.cab", "Pkgs\x86\xp\en-gb\MPSSetup.cab", "Pkgs\x86\xp\en-gb\OCLocRes.cab", "Pkgs\x86\xp\en-gb\Upgrade.cab"}
+                                    destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "msxml.cab", "PxEngine.cab", "winss.cab", "dotnet.cab", "AV.cab", "KB914882.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                                End If
+                            Case "2.0"
+                                log("Checking Service pack version...")
+                                If Environment.OSVersion.VersionString.Contains("Service Pack 3") Then
+                                    log("Unsupported service pack detected!")
+                                    'Idcrl 2.0 does not support SP3, only SP2.
+                                    SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Version 2.0 discs only support Service Pack 2 for XP. You'll need to downgrade to Service Pack 2 or use a V2.5 disc.")
+                                    SetupCancelled.Show()
+                                    Exit Function
+                                Else
+                                    log("Beginning files to copy.")
+                                    filesToCopy = {"Pkgs\dw20shared.cab", "Pkgs\Idcrl.cab", "Pkgs\x86\mpam-fe.exe", "Pkgs\PxEngine.cab", "Pkgs\x86\winss.cab", "Pkgs\x86\xp\dotnet.cab", "Pkgs\x86\xp\en-gb\AV.cab", "Pkgs\x86\xp\en-gb\KB923845.cab", "Pkgs\x86\xp\en-gb\KB914882.cab", "Pkgs\x86\xp\en-gb\MPSSetup.cab", "Pkgs\x86\xp\en-gb\OCLocRes.cab", "Pkgs\x86\xp\en-gb\Upgrade.cab"}
+                                    destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "PxEngine.cab", "winss.cab", "dotnet.cab", "AV.cab", "KB923845.cab", "KB914882.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
+                                    'not finished
+                                End If
                             Case Else
                                 SetupCancelled.Show()
                                 SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
                                 Return False
                         End Select
-                        ' Case "2.0"
-                        '     filesToCopy = {"", ""}
-                        '     destfiles = {"", ""}
+
                         ' Case "2.5"
                         '     filesToCopy = {"", ""}
                         '     destfiles = {"", ""}
-                        'End Select
                 End Select
+
             Case Else
                 log("Current OS type is not supported. Cancelling the installation.")
                 log("Unsupported Operating System detected. If you're trying to use Longhorn or a beta, it might be worth trying the 'ByPass OS' Checkbox. Please note this will set it to Vista however.")
-                cancelInstallation("Unsupported Operating System", "Unfortunately the operating system you're currently running is not compatible with the disc you have." & Environment.NewLine &
+                SetupCancelled.Label1.Text = "Unsupported Service Pack for this Operating System." & Environment.NewLine & Environment.NewLine & "Unfortunately the operating system you're currently running is not compatible with the disc you have." & Environment.NewLine &
                 "For V1.5: XP SP2 or Vista 32 Bit ONLY" & Environment.NewLine &
                 "For V2.0: XP 32Bit SP2 or Vista 32/64 Bit ONLY" & Environment.NewLine &
-                "For V2.5: XP 32Bit SP2 or Vista 32/64 Bit ONLY")
+                "For V2.5: XP 32Bit SP2 or Vista 32/64 Bit ONLY"
         End Select
         'Update the progressbar to match the files that need to be copied.
         log("Updating Progress bar information")
@@ -361,7 +384,7 @@
                     Case "XP"
                         If Environment.OSVersion.VersionString.Contains("Service Pack 3") Then
                             errorType = "Unsupported Service Pack"
-                            errorLog = "Unfortunately, Version 1.5 'Gold' discs only support Service Pack 2 for XP. You'll need a V2.0 or V2.5 disc or newer to install on XP."
+                            errorLog = "Unfortunately, Version 1.5 'Gold' discs only support Service Pack 2 for XP. You'll need a V2.5 disc or newer to install on XP SP3, alternatively, downgrade to SP2."
                             Return False
                         Else
                             Me.TopMost = False
@@ -390,6 +413,34 @@
                 Return True
             Case "2.0"
                 log("Version " & globs.discVersion & " detected")
+
+                Select Case OSType
+                    Case "XP"
+
+                        If Environment.OSVersion.VersionString.Contains("Service Pack 3") Then
+                            errorType = "Unsupported Service Pack"
+                            errorLog = "Unfortunately, Version 2.0 discs only support Service Pack 2 for XP. You'll need to downgrade to Service Pack 2 or use a V2.5 disc."
+                            Return False
+                        Else
+                            log("XP Detection, preparing pre-reqs...")
+                            Me.TopMost = False
+                            log("Installing pre-requisites...0 of 2")
+                            installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
+                            log("Installing pre-requisites...1 of 2")
+                            installPackage("XP Pre-requisite Update 2", "C:\OneCare\WindowsXP-KB923845-x86.exe", "")
+                            log("Installing pre-requisites...2 of 2")
+                            Me.TopMost = True
+                            log("Done with pre-requisites. Continuing now.")
+                        End If
+
+
+
+                    Case Else
+                        'Do nothing, not needed.
+                End Select
+
+
+
                 Try
                     log("Writing BOINC")
                     My.Computer.FileSystem.WriteAllBytes("C:\Onecare\BOINC.bat", My.Resources.binst_oc, False)
@@ -403,10 +454,26 @@
                 ProgressBar2.Style = ProgressBarStyle.Marquee
                 ProgressBar2.MarqueeAnimationSpeed = 40
                 Me.TopMost = False
-                installPackage("V2.0 Gold BOINC Automation", "c:\OneCare\BOINC.bat", Nothing)
+                installPackage("V2.0 BOINC Automation", "c:\OneCare\BOINC.bat", Nothing)
                 Return True
             Case "2.5"
                 log("Version " & globs.discVersion & " detected")
+
+                Select Case OSType
+                    Case "XP"
+                        log("XP Detection, preparing pre-reqs...")
+                        Me.TopMost = False
+                        log("Installing pre-requisites...0 of 2")
+                        installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
+                        log("Installing pre-requisites...1 of 2")
+                        installPackage("XP Pre-requisite Update 2", "C:\OneCare\WindowsXP-KB923845-x86.exe", "")
+                        log("Installing pre-requisites...2 of 2")
+                        Me.TopMost = True
+                        log("Done with pre-requisites. Continuing now.")
+                    Case Else
+                        'Do nothing, not needed.
+                End Select
+
                 Try
                     log("Writing BOINC")
                     My.Computer.FileSystem.WriteAllBytes("C:\Onecare\BOINC.bat", My.Resources.binst_oc, False)

@@ -82,6 +82,7 @@
             If OSName.Contains("XP") Then
                 log("You're running Windows XP!")
                 OSType = "XP"
+
                 detectInstallCD()
             ElseIf OSName.Contains("Vista") Then
                 log("You're running Windows Vista!")

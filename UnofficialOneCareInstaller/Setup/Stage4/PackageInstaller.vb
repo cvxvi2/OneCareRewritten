@@ -23,27 +23,34 @@
     End Sub
 
     Sub InstallPackage()
-        Dim ipm As New ProcessStartInfo
-        If useHiddenWindow = True Then
-            log("[PackageInstaller] Using Hidden Window...")
-            With ipm
-                .FileName = filepath
-                .Arguments = fileargs
-                .CreateNoWindow = True
-                .UseShellExecute = False
-                .WindowStyle = ProcessWindowStyle.Hidden
-            End With
-        Else
-            With ipm
-                .FileName = filepath
-                .Arguments = fileargs
-            End With
-        End If
+        Try
+            Dim ipm As New ProcessStartInfo
+            If useHiddenWindow = True Then
+                log("[PackageInstaller] Using Hidden Window...")
+                With ipm
+                    .FileName = filepath
+                    .Arguments = fileargs
+                    .CreateNoWindow = True
+                    .UseShellExecute = False
+                    .WindowStyle = ProcessWindowStyle.Hidden
+                End With
+            Else
+                With ipm
+                    .FileName = filepath
+                    .Arguments = fileargs
+                End With
+            End If
 
-        Dim expander As Process = Process.Start(ipm)
-        expander.WaitForExit()
-        Me.Close()
-
+            Dim expander As Process = Process.Start(ipm)
+            expander.WaitForExit()
+            Me.Close()
+        Catch ex As Exception
+            log("[ERROR] [PackageInstaller] An error occurred during package installation. The following installation variables are present:" & Environment.NewLine &
+                "Filename: " & filename & Environment.NewLine &
+                "Filepath: " & filepath & Environment.NewLine &
+                "Fileargs: " & fileargs & Environment.NewLine &
+                "Tripped Error: " & ex.Message.ToString)
+        End Try
 
 
     End Sub

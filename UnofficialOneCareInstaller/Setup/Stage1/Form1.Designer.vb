@@ -68,6 +68,7 @@ Partial Class Form1
         Me.ComboBox1.BackColor = System.Drawing.SystemColors.Control
         Me.ComboBox1.Enabled = False
         Me.ComboBox1.FormattingEnabled = True
+        Me.ComboBox1.Items.AddRange(New Object() {"English (United Kingdom)", "de-at", "de-ch", "de-de", "en-au", "en-ca", "en-gb", "en-ie", "en-nz", "en-sg", "en-us", "es-es", "es-mx", "es-us", "fr-be", "fr-ca", "fr-ch", "fr-fr", "it-it", "ja-jp", "ko-kr", "nl-be", "nl-nl"})
         Me.ComboBox1.Location = New System.Drawing.Point(15, 141)
         Me.ComboBox1.Name = "ComboBox1"
         Me.ComboBox1.Size = New System.Drawing.Size(272, 21)

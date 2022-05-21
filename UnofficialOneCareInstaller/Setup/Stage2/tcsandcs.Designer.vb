@@ -76,21 +76,19 @@ Partial Class tcsandcs
         '
         'RadioButton1
         '
-        Me.RadioButton1.AutoSize = True
         Me.RadioButton1.Location = New System.Drawing.Point(13, 299)
         Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(142, 17)
+        Me.RadioButton1.Size = New System.Drawing.Size(513, 17)
         Me.RadioButton1.TabIndex = 49
         Me.RadioButton1.Text = "I accept the terms of use"
         Me.RadioButton1.UseVisualStyleBackColor = True
         '
         'RadioButton2
         '
-        Me.RadioButton2.AutoSize = True
         Me.RadioButton2.Checked = True
         Me.RadioButton2.Location = New System.Drawing.Point(13, 316)
         Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(175, 17)
+        Me.RadioButton2.Size = New System.Drawing.Size(513, 17)
         Me.RadioButton2.TabIndex = 50
         Me.RadioButton2.TabStop = True
         Me.RadioButton2.Text = "I do not accept the terms of use"

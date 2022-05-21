@@ -53,11 +53,11 @@ Partial Class preinst
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.TabPage6 = New System.Windows.Forms.TabPage()
+        Me.Label15 = New System.Windows.Forms.Label()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
         Me.Button5 = New System.Windows.Forms.Button()
         Me.Label14 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.Label15 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -401,6 +401,15 @@ Partial Class preinst
         Me.TabPage6.Text = "OneCare Maintenance"
         Me.TabPage6.UseVisualStyleBackColor = True
         '
+        'Label15
+        '
+        Me.Label15.AutoSize = True
+        Me.Label15.Location = New System.Drawing.Point(4, 331)
+        Me.Label15.Name = "Label15"
+        Me.Label15.Size = New System.Drawing.Size(43, 13)
+        Me.Label15.TabIndex = 2
+        Me.Label15.Text = "OS Info"
+        '
         'GroupBox3
         '
         Me.GroupBox3.Controls.Add(Me.Button5)
@@ -443,15 +452,6 @@ Partial Class preinst
         Me.Label13.TabIndex = 0
         Me.Label13.Text = "If OneCare is already installed, you can perform some maintenance on it here."
         '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(4, 331)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(43, 13)
-        Me.Label15.TabIndex = 2
-        Me.Label15.Text = "OS Info"
-        '
         'preinst
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -467,7 +467,7 @@ Partial Class preinst
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "preinst"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
-        Me.Text = "Windows Live OneCare Rewritten Installer (V0.1.4)"
+        Me.Text = "Windows Live OneCare Rewritten Installer (V0.1.5)"
         Me.TabControl1.ResumeLayout(False)
         Me.TabPage1.ResumeLayout(False)
         Me.TabPage1.PerformLayout()

@@ -27,8 +27,11 @@ Partial Class SetupCancelled
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PictureBox2 = New System.Windows.Forms.PictureBox()
         Me.PictureBox1 = New System.Windows.Forms.PictureBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.TextBox1 = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'Button2
@@ -45,7 +48,7 @@ Partial Class SetupCancelled
         '
         Me.Label1.Location = New System.Drawing.Point(12, 77)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(514, 266)
+        Me.Label1.Size = New System.Drawing.Size(514, 128)
         Me.Label1.TabIndex = 8
         Me.Label1.Text = "Windows Live OneCare Rewritten did not install successfully."
         '
@@ -68,12 +71,35 @@ Partial Class SetupCancelled
         Me.PictureBox1.TabIndex = 7
         Me.PictureBox1.TabStop = False
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.TextBox1)
+        Me.GroupBox1.Location = New System.Drawing.Point(12, 208)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(514, 132)
+        Me.GroupBox1.TabIndex = 11
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "Installation log (if available)"
+        '
+        'TextBox1
+        '
+        Me.TextBox1.BackColor = System.Drawing.Color.White
+        Me.TextBox1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.TextBox1.Location = New System.Drawing.Point(3, 16)
+        Me.TextBox1.Multiline = True
+        Me.TextBox1.Name = "TextBox1"
+        Me.TextBox1.ReadOnly = True
+        Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox1.Size = New System.Drawing.Size(508, 113)
+        Me.TextBox1.TabIndex = 0
+        '
         'SetupCancelled
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.Color.White
         Me.ClientSize = New System.Drawing.Size(538, 395)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.Button2)
         Me.Controls.Add(Me.PictureBox2)
         Me.Controls.Add(Me.Label1)
@@ -84,6 +110,8 @@ Partial Class SetupCancelled
         Me.Text = "Windows Live OneCare Rewritten Installation"
         CType(Me.PictureBox2, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -92,4 +120,6 @@ Partial Class SetupCancelled
     Friend WithEvents PictureBox2 As PictureBox
     Friend WithEvents Label1 As Label
     Friend WithEvents PictureBox1 As PictureBox
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents TextBox1 As TextBox
 End Class

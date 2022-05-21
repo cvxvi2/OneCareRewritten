@@ -5,5 +5,10 @@
 
     Private Sub SetupCancelled_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.MinimumSize = Me.Size : Me.MaximumSize = Me.Size
+        Try
+            TextBox1.Text = insttlog.TextBox1.Text
+        Catch ex As Exception
+            TextBox1.Text = "Unable to get the installation log: " & ex.Message.ToString
+        End Try
     End Sub
 End Class
