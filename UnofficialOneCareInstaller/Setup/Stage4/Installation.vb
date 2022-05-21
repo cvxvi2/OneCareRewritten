@@ -238,31 +238,11 @@
                     Case True
                         log("Current installation type is x64.")
                         SetupCancelled.Show()
-                        SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
+                        SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported on 64-Bit systems.")
                         Return False
-                        ' Select Case globs.discVersion
-                        '     '1.5 Gold does not support 64bit operating systems at all.
-                        ' Case "1.5"
-                        ' log("Oops, you have a 64 Bit Operating system. These rare V1.5 Gold Discs won't work with that.")
-                        'SetupCancelled.Show()
-                        'SetupCancelled.Label1.Text = ("Unsupported Operating System Architecture" & Environment.NewLine & Environment.NewLine & "Unfortunately, the version of OneCare you're attempting to use (A version 1.5 'Gold' Disc), is only supported on the following: " & Environment.NewLine & Environment.NewLine &
-                        '                           "Windows XP Service Pack 2: 32 Bit" & Environment.NewLine &
-                        '                          "Windows Vista: 32 Bit" & Environment.NewLine & Environment.NewLine &
-                        '                         "Your system is running a 64 Bit installation and thus is unsupported for installation. You'll need a Version 2.0 or Version 2.5 disc to continue.")
-                        '
-                        'Me.Close() '
-                        'Exit Function
-                        ' Case "2.0"
-                        '     filesToCopy = {"", ""}
-                        '     destfiles = {"", ""}
-                        ' Case "2.5"
-                        '    filesToCopy = {"", ""}
-                        '    destfiles = {"", ""}
-                        ' End Select
-
                     Case False
-                        log("[installation.vb] [264] Current installation type is x32.")
-                        log("[installation.vb] [265] Disc Version: " & globs.discVersion)
+                        log("[installation.vb] [XP Install] [264] Current installation type is x32.")
+                        log("[installation.vb] [XP Install] [265] Disc Version: " & globs.discVersion)
                         Select Case globs.discVersion
                             Case "1.5"
                                 If Environment.OSVersion.VersionString.Contains("Service Pack 3") Then
@@ -291,15 +271,16 @@
                                     destfiles = {"dw20shared.cab", "Idcrl.cab", "mpam-fe.exe", "PxEngine.cab", "winss.cab", "dotnet.cab", "AV.cab", "KB923845.cab", "KB914882.cab", "MPSSetup.cab", "OCLocRes.cab", "Upgrade.cab"}
                                     'not finished
                                 End If
+                            Case "2.5"
+                                log("Beginning files to copy.")
+                                filesToCopy = {"Pkgs\dw20shared.cab", "Pkgs\GTOneCare.cab", "Pkgs\idcrl.cab", "Pkgs\PxEngine.cab", "Pkgs\ByProc\x86\winss.cab", "Pkgs\ByProc\x86\mpam-fe.exe", "Pkgs\ByProcMarket\x86\en-us\AV.cab", "Pkgs\ByProcOSMarket\x86\xp\en-us\MPSSetup.cab", "Pkgs\ByProcOSMarket\x86\xp\en-us\KB914882.cab", "Pkgs\ByProcOSMarket\x86\xp\en-us\KB923845.cab", "Pkgs\ByProcMarket\x86\en-gb\OCLocRes.cab", "Pkgs\ByMarket\en-us\Upgrade.cab"}
+                                destfiles = {"dw20shared.cab", "GTOneCare.cab", "idcrl.cab", "PxEngine.cab", "winss.cab", "mpam-fe.exe", "AV.cab", "MPSSetup.cab", "KB914882.cab", "KB923845.cab", "OCLocRes.cab", "Upgrade.cab"}
                             Case Else
                                 SetupCancelled.Show()
                                 SetupCancelled.Label1.Text = ("Unsupported Operating System " & Environment.NewLine & Environment.NewLine & "Unfortunately, Windows XP Support is currently still in beta and is not supported.")
                                 Return False
                         End Select
 
-                        ' Case "2.5"
-                        '     filesToCopy = {"", ""}
-                        '     destfiles = {"", ""}
                 End Select
 
             Case Else
