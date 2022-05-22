@@ -122,24 +122,6 @@
 project to bring back OneCare. Windows, Windows Live, The Windows Logo and OneCare are registered trademarks
 of Microsoft Corporation and have no affliation with the Windows Live OneCare Rewritten Installer Project.</value>
   </data>
-  <data name="Label2.Text" xml:space="preserve">
-    <value>Welcome to the preinstallation environment for Windows Live OneCare Rewritten by Cobs.
-
-Installation Notes:
-
--If you're attempting a reinstall after a failed initial install, please delete %temp%\OCSetup
- and c:\OneCare
--Windows XP is only supported with 2.5 discs on SP3.
--Backup is only functional on V1.5 Gold discs.
-
-
-Requirements:
--Microsoft .Net 4.0
--Windows Vista or Windows XP 32-Bit (SP3)
--Windows Live ID Assistant Service
--Windows Live OneCare disc in optical drive or virtually mounted
-</value>
-  </data>
   <data name="Label9.Text" xml:space="preserve">
     <value>Reviewing Microsoft's warning, all assets including the original OneCare logo and the installer
 banner are protected by copyright.

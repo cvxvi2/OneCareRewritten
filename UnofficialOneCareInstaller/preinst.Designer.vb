@@ -104,9 +104,9 @@ Partial Class preinst
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.75!)
         Me.Label2.Location = New System.Drawing.Point(3, 3)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(494, 225)
+        Me.Label2.Size = New System.Drawing.Size(150, 15)
         Me.Label2.TabIndex = 68
-        Me.Label2.Text = resources.GetString("Label2.Text")
+        Me.Label2.Text = "Loading Language Pack..."
         '
         'TabControl1
         '

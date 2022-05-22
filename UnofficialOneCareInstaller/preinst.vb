@@ -5,7 +5,7 @@
         Catch es As Exception
         End Try
 
-
+        Label2.Text = getLangText("en-gb", "preinst", "Label2")
         Me.MaximumSize = Me.Size
         Me.MinimumSize = Me.Size
         Me.Icon = Form1.Icon
