@@ -32,7 +32,7 @@
                 Select Case formname
                     Case "preinst"
                         Select Case reqlbl
-                            Case "label2"
+                            Case "Label2"
                             Case Else
                                 Return errtxt
                         End Select
