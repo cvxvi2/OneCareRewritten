@@ -12,12 +12,12 @@ yet to finalise the code, due to this, Windows XP (Specifically the 64Bit versio
 <p>The official setup file that comes on the OneCare discs attempts to reach Microsoft servers that no longer exist to download additional setup packages.</p>
 <p>This bypasses this step by installing whats on your disc, the same way the original installer would've done if the servers were online.</p>
 <h3>Requirements</h3>
-<p>OneCare setup ISO or disc mounted, all versions of the disc will work, this app will auto detect which version you have. Windows XP currently only supports 1.5.</p>
+<p>OneCare setup ISO or disc mounted, all versions of the disc will work, this app will auto detect which version you have. </p>
 <h3>Supported OSes</h3>
 <p>Windows Vista (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5)</p>
 <p>Windows Vista (Any edition) 64-Bit (Disc Versions 2.0, 2.5)</p>
 <p>Window XP (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5) (Please note you must be running SP2 specifically unless you have a V2.5 disc)</p>
-<p>All other versions currently won't work, likewise for Server 2008/r2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support is functional under beta-testing using BOINC for 2.0 and 2.5, but not implemented into the installer</p>
+<p>All other versions currently won't work, likewise for Server 2008/r2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support is now functional.</p>
 <h3>Project Properties</h3>
 <p>Platform: x86/32-Bit</p>
 <p>Targetting Framework: .net 4.0</p>
