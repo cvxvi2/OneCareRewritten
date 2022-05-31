@@ -16,7 +16,7 @@ yet to finalise the code, due to this, Windows XP (Specifically the 64Bit versio
 <h3>Supported OSes</h3>
 <p>Windows Vista (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5)</p>
 <p>Windows Vista (Any edition) 64-Bit (Disc Versions 2.0, 2.5)</p>
-<p>Window XP (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5) (Please note you must be running SP2 specifically unless you have a V2.5 disc)</p>
+<p>Windows XP (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5) (Please note you must be running SP2 specifically unless you have a V2.5 disc)</p>
 <p>All other versions currently won't work, likewise for Server 2008/r2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support is now functional.</p>
 <h3>Project Properties</h3>
 <p>Platform: x86/32-Bit</p>
