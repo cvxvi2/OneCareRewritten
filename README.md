@@ -1,7 +1,7 @@
 # OneCareRewritten
 <h3>OneCare Rewritten</h3>
 <p>This is an upload of the OneCare Rewritten project which can be found at https://onecare.cloudlillith.net. <br> This means that I've
-yet to finalise the code, due to this, Windows XP 64Bit has no support.</p>
+yet to finalise the code, due to this, Windows XP (Specifically the 64Bit version) has no support. Normal Windows XP 32 Bit is fully supported, along with Vista.</p>
 <h3>Getting Started</h3>
 <p>Head over to the <a href="https://github.com/cvxvi2/OneCareRewritten/releases">releases tab</a> and grab the latest release.</p>
 <p>Insert your OneCare disc, and cancel any popups that show.</p>
