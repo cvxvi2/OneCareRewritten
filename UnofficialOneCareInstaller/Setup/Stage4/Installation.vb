@@ -369,7 +369,7 @@
                             Return False
                         Else
                             Me.TopMost = False
-                            log("Installing pre-requisites...")
+                            log("Installing pre-requisite KB914882 (x86)...")
                             installPackage("XP Pre-requisite Update", "C:\OneCare\WindowsXP-KB914882-x86.exe", "")
                             Me.TopMost = True
                         End If

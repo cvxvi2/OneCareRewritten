@@ -244,7 +244,7 @@ Partial Class preinst
         Me.Label5.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.25!)
         Me.Label5.Location = New System.Drawing.Point(7, 33)
         Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(592, 224)
+        Me.Label5.Size = New System.Drawing.Size(591, 224)
         Me.Label5.TabIndex = 71
         Me.Label5.Text = resources.GetString("Label5.Text")
         '
@@ -345,6 +345,7 @@ Partial Class preinst
         Me.GroupBox1.TabIndex = 3
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "BOINC Options (Disabled, future implementation planned)"
+        Me.GroupBox1.Visible = False
         '
         'RadioButton3
         '

@@ -95,6 +95,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="opt\mpamupd.Designer.vb">
+      <DependentUpon>mpamupd.vb</DependentUpon>
+    </Compile>
+    <Compile Include="opt\mpamupd.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="preinst.Designer.vb">
       <DependentUpon>preinst.vb</DependentUpon>
     </Compile>
@@ -189,6 +195,9 @@
   <ItemGroup>
     <EmbeddedResource Include="insttlog.resx">
       <DependentUpon>insttlog.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="opt\mpamupd.resx">
+      <DependentUpon>mpamupd.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="preinst.resx">
       <DependentUpon>preinst.vb</DependentUpon>
