@@ -2,13 +2,10 @@
     Private Sub preinst_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         If Debugger.IsAttached Then
             GroupBox1.Visible = True
-            GroupBox3.Enabled = True
+
 
         End If
-        Try
-            Label15.Text = Environment.OSVersion.VersionString
-        Catch es As Exception
-        End Try
+
 
         Label2.Text = getLangText("en-gb", "preinst", "Label2")
         Me.MaximumSize = Me.Size
@@ -54,7 +51,7 @@
         End If
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs)
         mpamupd.ShowDialog()
 
     End Sub

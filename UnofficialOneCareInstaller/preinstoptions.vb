@@ -9,7 +9,9 @@
     End Sub
 
     Private Sub preinstoptions_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        Dim installocs As String() = {"c:\Program Files\Windows Live OneCare", "C:\Program Files (x86)\Windows Live OneCare"}
+        Me.Icon = preinst.Icon
+        Dim installocs As String() = {"c:\Program Files\Microsoft Windows OneCare Live", "C:\Program Files (x86)\Microsoft Windows OneCare Live"}
+        'Paths identified from OneCare 1.5 install on Acer Aspire 4315 // Vista Home Premium
         Dim isfnd As Boolean = False
         For i = 0 To (installocs.Length - 1)
             If isfnd = True Then
@@ -22,5 +24,9 @@
             End If
         Next
 
+    End Sub
+
+    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+        mmenu.ShowDialog()
     End Sub
 End Class

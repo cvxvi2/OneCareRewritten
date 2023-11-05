@@ -52,12 +52,6 @@ Partial Class preinst
         Me.RadioButton2 = New System.Windows.Forms.RadioButton()
         Me.RadioButton1 = New System.Windows.Forms.RadioButton()
         Me.Label12 = New System.Windows.Forms.Label()
-        Me.TabPage6 = New System.Windows.Forms.TabPage()
-        Me.Label15 = New System.Windows.Forms.Label()
-        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.Button5 = New System.Windows.Forms.Button()
-        Me.Label14 = New System.Windows.Forms.Label()
-        Me.Label13 = New System.Windows.Forms.Label()
         Me.TabControl1.SuspendLayout()
         Me.TabPage1.SuspendLayout()
         Me.TabPage2.SuspendLayout()
@@ -66,8 +60,6 @@ Partial Class preinst
         Me.TabPage5.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
         Me.GroupBox1.SuspendLayout()
-        Me.TabPage6.SuspendLayout()
-        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'Label4
@@ -115,7 +107,6 @@ Partial Class preinst
         Me.TabControl1.Controls.Add(Me.TabPage3)
         Me.TabControl1.Controls.Add(Me.TabPage4)
         Me.TabControl1.Controls.Add(Me.TabPage5)
-        Me.TabControl1.Controls.Add(Me.TabPage6)
         Me.TabControl1.HotTrack = True
         Me.TabControl1.Location = New System.Drawing.Point(162, 115)
         Me.TabControl1.Name = "TabControl1"
@@ -389,70 +380,6 @@ Partial Class preinst
         Me.Label12.Text = "Settings here will apply when installation begins." & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "These should NOT be used an" &
     "d may harm your system or cause a faulty" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "installation."
         '
-        'TabPage6
-        '
-        Me.TabPage6.Controls.Add(Me.Label15)
-        Me.TabPage6.Controls.Add(Me.GroupBox3)
-        Me.TabPage6.Controls.Add(Me.Label13)
-        Me.TabPage6.Location = New System.Drawing.Point(4, 22)
-        Me.TabPage6.Name = "TabPage6"
-        Me.TabPage6.Padding = New System.Windows.Forms.Padding(3)
-        Me.TabPage6.Size = New System.Drawing.Size(611, 350)
-        Me.TabPage6.TabIndex = 5
-        Me.TabPage6.Text = "OneCare Maintenance"
-        Me.TabPage6.UseVisualStyleBackColor = True
-        '
-        'Label15
-        '
-        Me.Label15.AutoSize = True
-        Me.Label15.Location = New System.Drawing.Point(4, 331)
-        Me.Label15.Name = "Label15"
-        Me.Label15.Size = New System.Drawing.Size(43, 13)
-        Me.Label15.TabIndex = 2
-        Me.Label15.Text = "OS Info"
-        '
-        'GroupBox3
-        '
-        Me.GroupBox3.Controls.Add(Me.Button5)
-        Me.GroupBox3.Controls.Add(Me.Label14)
-        Me.GroupBox3.Enabled = False
-        Me.GroupBox3.Location = New System.Drawing.Point(11, 30)
-        Me.GroupBox3.Name = "GroupBox3"
-        Me.GroupBox3.Size = New System.Drawing.Size(586, 96)
-        Me.GroupBox3.TabIndex = 1
-        Me.GroupBox3.TabStop = False
-        Me.GroupBox3.Text = "Update Antivirus Definitions"
-        '
-        'Button5
-        '
-        Me.Button5.Location = New System.Drawing.Point(421, 54)
-        Me.Button5.Name = "Button5"
-        Me.Button5.Size = New System.Drawing.Size(159, 36)
-        Me.Button5.TabIndex = 1
-        Me.Button5.Text = "Update Definitions"
-        Me.Button5.UseVisualStyleBackColor = True
-        '
-        'Label14
-        '
-        Me.Label14.AutoSize = True
-        Me.Label14.Location = New System.Drawing.Point(7, 20)
-        Me.Label14.Name = "Label14"
-        Me.Label14.Size = New System.Drawing.Size(486, 13)
-        Me.Label14.TabIndex = 0
-        Me.Label14.Text = "If you've installed a 2.0 disc, you can install the V2.5 Definitions providing yo" &
-    "u have the MPAM-FE file."
-        '
-        'Label13
-        '
-        Me.Label13.AutoSize = True
-        Me.Label13.Enabled = False
-        Me.Label13.Font = New System.Drawing.Font("Calibri", 12.0!)
-        Me.Label13.Location = New System.Drawing.Point(7, 7)
-        Me.Label13.Name = "Label13"
-        Me.Label13.Size = New System.Drawing.Size(516, 19)
-        Me.Label13.TabIndex = 0
-        Me.Label13.Text = "If OneCare is already installed, you can perform some maintenance on it here."
-        '
         'preinst
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
@@ -484,10 +411,6 @@ Partial Class preinst
         Me.GroupBox2.PerformLayout()
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
-        Me.TabPage6.ResumeLayout(False)
-        Me.TabPage6.PerformLayout()
-        Me.GroupBox3.ResumeLayout(False)
-        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -521,11 +444,5 @@ Partial Class preinst
     Friend WithEvents RadioButton3 As RadioButton
     Friend WithEvents RadioButton2 As RadioButton
     Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents TabPage6 As TabPage
-    Friend WithEvents Label13 As Label
-    Friend WithEvents GroupBox3 As GroupBox
-    Friend WithEvents Button5 As Button
-    Friend WithEvents Label14 As Label
     Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents Label15 As Label
 End Class
