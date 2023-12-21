@@ -1,4 +1,5 @@
 ﻿Public Class Installation
+    Private PreferredLanguageCode As String = "en-gb"
     Private Sub Installation_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.ShowInTaskbar = True
         Me.Visible = False
@@ -26,7 +27,7 @@
             Try
                 My.Computer.FileSystem.CreateDirectory("C:\Onecare")
             Catch ex As Exception
-                cancelInstallation("Unable to create required directory.", "Setup was unable to create c:\OneCare. Please validate permissions and try again.")
+                cancelInstallation("Unable to create required directory.", "Setup was unable to create C:\OneCare. Please validate permissions and try again.")
             End Try
         End If
         'Create temporary directory for us to download the relevant files to.
@@ -185,6 +186,13 @@
         'OS will initially be used for us to specify between the Vista and XP folders, Architecture to grab the 64bit versions instead if we need them,
         'and the disc type because the files are in different folders for each disc. Not sure why they didn't just keep them in the same directories.
         Dim filesToCopy As String() ' Initial array of the files that will be copied
+
+
+
+        ' TODO:
+        ' -Use PreferredLanguageCode to check if the files are available on the preferred language
+        '  If not, revert to defaults, en-gb or en-us.
+        '  Perhaps separate en-gb and en-us packages? Seems to be a mix.
 
         log("Building list of files to copy based on your OS Type of " & OSType)
         Select Case OSType
