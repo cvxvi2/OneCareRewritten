@@ -117,30 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="RichTextBox1.Text" xml:space="preserve">
-    <value>Disclaimer: You're installing this software at your own risk. It's old, contains outdated signatures and 
-absolutely should NOT be used on a live system. No guarantee's or warranties are provided,
-furthermore, any damages done to you, your computer(s), your system(s) or other present devices or systems are not the responsibility of the software creator, developers, distributors or maintainers. 
+  <data name="Label1.Text" xml:space="preserve">
+    <value>OneCare Rewritten Setup has detected a damaged or modified
+package on your installation media.
 
-No support is provided for this.
+If your disc has scratches, it should be okay to continue but may result in a failed installation.
 
-A quick message from myself.
+If you downloaded an ISO file of OneCare online, you should not continue. Your copy may have
+been tampered with or is corrupt.
 
-First of all thank you for all the support with this project. (Especially MJD!)
-
-Bringing back this old software isn't/wasn't easy and has been a long process.
-
-Please note this software is not finished (and most likely never will be). As a result
-of this, please expect bugs and crashes.
-
-By installing this software, you are stating that you legally own a copy of Microsoft Windows
-Live OneCare.
-
-Microsoft reserves the right to shut this project down at any time. This project is simply a 
-recreation of the installer for Windows Live OneCare by Microsoft Corporation and Sonic Solutions, recreating
-the functions of the original installation media.
-
-Have fun, please let me know if you find any bugs!
-</value>
+Do you want to continue?</value>
   </data>
 </root>

@@ -179,10 +179,17 @@
     <Compile Include="Setup\Stage4\CF.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Setup\Stage4\definedhashes.vb" />
     <Compile Include="Setup\Stage4\expansion.Designer.vb">
       <DependentUpon>expansion.vb</DependentUpon>
     </Compile>
     <Compile Include="Setup\Stage4\expansion.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Setup\Stage4\HashFailure.Designer.vb">
+      <DependentUpon>HashFailure.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\Stage4\HashFailure.vb">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Setup\Stage4\Installation.Designer.vb">
@@ -246,6 +253,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\Stage4\expansion.resx">
       <DependentUpon>expansion.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Setup\Stage4\HashFailure.resx">
+      <DependentUpon>HashFailure.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Setup\Stage4\Installation.resx">
       <DependentUpon>Installation.vb</DependentUpon>

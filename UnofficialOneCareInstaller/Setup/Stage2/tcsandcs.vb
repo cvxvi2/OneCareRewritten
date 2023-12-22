@@ -1,5 +1,13 @@
 ﻿Public Class tcsandcs
     Dim tandcsStage As Integer = 0
+
+
+
+    ' TODO
+    ' Add hash check of Tcs&Cs from the disc to ensure it hasn't been tampered with.
+    ' This will help prevent against exploits.
+
+
     Private Sub tcsandcs_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         Me.MinimumSize = Me.Size : Me.MaximumSize = Me.Size
         Me.Icon = Form1.Icon
