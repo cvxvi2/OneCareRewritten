@@ -4,7 +4,7 @@
 yet to finalise the code, due to this, Windows XP (Specifically the 64Bit version) has no support. Normal Windows XP 32 Bit is fully supported, along with Vista.</p>
 <h3>Getting Started</h3>
 <p>Head over to the <a href="https://github.com/cvxvi2/OneCareRewritten/releases">releases tab</a> and grab the latest release.</p>
-<p><b>XP Warning:</b> If on XP, please install .net 3.5 AND .net 4.0. Failing to do so will result in "Could not find compatible runtime to run this program" after installing OneCare.</p>
+<p><b>XP Warning:</b> If on XP, please install .NET 3.5 AND .NET 4.0. Failing to do so will result in "Could not find compatible runtime to run this program" after installing OneCare.</p>
 <p>Insert your OneCare disc, and cancel any popups that show.</p>
 <p>Launch OneCare Rewritten and follow the onscreen instructions to install.</p>
 <h3>What does this do?</h3>
@@ -17,12 +17,12 @@ yet to finalise the code, due to this, Windows XP (Specifically the 64Bit versio
 <h3>Supported OSes</h3>
 <p>Windows Vista (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5)</p>
 <p>Windows Vista (Any edition) 64-Bit (Disc Versions 2.0, 2.5)</p>
-<p>Windows XP (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5) (Please note you must be running SP2 specifically unless you have a V2.5 disc)</p>
-<p>All other versions currently won't work, likewise for Server 2008/r2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support is now functional.</p>
+<p>Windows XP (Any edition) 32-Bit (Disc Versions 1.5, 2.0, 2.5) (Please note that you must be running SP2 specifically unless you have a V2.5 disc)</p>
+<p>All other versions currently won't work, likewise for Server 2008/R2. If anyone has an image of OneCare for Server, please let me know so I can look at adding support for this. XP support is now functional.</p>
 <h3>Project Properties</h3>
 <p>Platform: x86/32-Bit</p>
-<p>Targetting Framework: .net 4.0</p>
-<p>Visual Studio 2019 Community (2022 doesn't support legacy .net versions natively)</p>
+<p>Targetting Framework: .NET 4.0</p>
+<p>Visual Studio 2019 Community (2022 doesn't support legacy .NET versions natively)</p>
 <h2>FAQ</h2>
 <h3>Why isn't it themed like the original installer?</h3>
 <p>I don't want an IP lawsuit. Microsoft own the original setup materials and explicitly state that the installer and it's contents are not to be redistributed

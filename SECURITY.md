@@ -3,8 +3,7 @@
 ## Reporting a Vulnerability
 
 It should go without saying that running this product alone is a security vulnerability. Windows Live OneCare hasn't been (and won't receive) updates for years.
-Please do not report issues about OneCare running outdated Virus signatures, nothing can be done about this. Modern MPAM-FE's no longer respond to the relevant
-arguments instructing updates to OneCare.
+Please do not report issues about OneCare running outdated Virus signatures, nothing can be done about this. Modern MPAM-FE's no longer respond to the relevant arguments instructing updates to OneCare.
 
 If you find a serious vulnerability with the installer itself, please log this under Discussions or Issues so this can be looked into.
 
